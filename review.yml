@@ -1,0 +1,112 @@
+aid: turvo
+name: Turvo
+review:
+  question: Does Turvo expose a documented public WebSocket API?
+  answer: false
+  date: '2026-07-05'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was authored. Turvo's public real-time surface is
+    delivered through outbound HTTP webhooks (event notifications posted to a
+    subscriber URL when shipments, orders, or tracking/location updates change),
+    not through a client-facing WebSocket or SSE stream on Turvo's own API.
+    Webhook delivery is server-to-endpoint HTTP and does not, by itself,
+    warrant an AsyncAPI document for a bidirectional or streaming transport;
+    the webhook payloads are modeled alongside the REST resources instead.
+findings:
+  summary: |
+    Turvo does not publish a documented public WebSocket API. Turvo's Public
+    API is a request/response JSON REST interface over HTTPS (base
+    https://publicapi.turvo.com), secured with OAuth 2.0 Bearer tokens plus a
+    per-tenant API key (x-api-key). Real-time behavior is provided by
+    event-driven webhooks - Turvo POSTs notifications to a subscriber endpoint
+    when shipments hit statuses such as "arrived" or when tracking/location
+    updates are received - which is outbound HTTP, not a WebSocket. No
+    realtime, bidirectional, or streaming WebSocket (ws:// or wss://) endpoint
+    is documented for Turvo's Public API.
+  accessModel: |
+    The Turvo Public API is self-service but tenant-gated, not an openly public
+    developer program. Credentials (Client ID, Client Secret, API Key) are
+    provisioned from the API profile inside a customer's Turvo tenant, and the
+    interactive API reference sits behind a Turvo login at
+    app.turvo.com/lobby/documentation. A sandbox tenant is offered for testing
+    before go-live. Turvo describes the API as "self-service Public API and
+    webhooks" in its help center.
+  endpointsModeled: true
+  endpointsModeledNote: |
+    Because the interactive reference is tenant-gated (login required) and could
+    not be fetched anonymously, the endpoint paths captured in openapi/ and
+    collections/ are HONESTLY MODELED from Turvo's publicly described resource
+    set (shipments, orders, locations, accounts, carriers, tracking/location
+    updates, webhooks) and its documented OAuth 2.0 + x-api-key auth pattern.
+    They are a faithful structural model of a v1 REST TMS API, not a verbatim
+    copy of the live specification. Exact field names, query parameters, and
+    nested paths should be confirmed against a tenant's own reference.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://publicapi.turvo.com/v1
+      documented: true
+      note: JSON REST Public API. Sandbox tenants use a separate per-tenant base host.
+    - protocol: Webhook
+      scheme: https
+      documented: true
+      note: Event-driven webhooks POST notifications (e.g. shipment status, location updates) to a configured subscriber URL. Server-to-endpoint HTTP, not WebSocket.
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented anywhere in Turvo's Public API or webhooks material as of the review date.
+  endpointsModeledRest:
+    - POST   https://publicapi.turvo.com/v1/oauth/token
+    - GET    https://publicapi.turvo.com/v1/shipments/list
+    - POST   https://publicapi.turvo.com/v1/shipments
+    - GET    https://publicapi.turvo.com/v1/shipments/{id}
+    - PUT    https://publicapi.turvo.com/v1/shipments/{id}
+    - DELETE https://publicapi.turvo.com/v1/shipments/{id}
+    - GET    https://publicapi.turvo.com/v1/orders/list
+    - POST   https://publicapi.turvo.com/v1/orders
+    - GET    https://publicapi.turvo.com/v1/orders/{id}
+    - PUT    https://publicapi.turvo.com/v1/orders/{id}
+    - GET    https://publicapi.turvo.com/v1/locations/list
+    - POST   https://publicapi.turvo.com/v1/locations
+    - GET    https://publicapi.turvo.com/v1/locations/{id}
+    - PUT    https://publicapi.turvo.com/v1/locations/{id}
+    - GET    https://publicapi.turvo.com/v1/accounts/list
+    - POST   https://publicapi.turvo.com/v1/accounts
+    - GET    https://publicapi.turvo.com/v1/accounts/{id}
+    - PUT    https://publicapi.turvo.com/v1/accounts/{id}
+    - GET    https://publicapi.turvo.com/v1/carriers/list
+    - POST   https://publicapi.turvo.com/v1/carriers
+    - GET    https://publicapi.turvo.com/v1/carriers/{id}
+    - PUT    https://publicapi.turvo.com/v1/carriers/{id}
+    - POST   https://publicapi.turvo.com/v1/shipments/{id}/locationUpdates
+    - GET    https://publicapi.turvo.com/v1/shipments/{id}/locationUpdates
+sources:
+  - url: https://help.turvo.com/hc/en-us/sections/12970447299987-API-Documentation
+    type: Documentation
+    note: Turvo help-center API Documentation section (Quick Start, Getting Started, Public API and webhooks).
+  - url: https://help.turvo.com/hc/en-us/articles/4407388745619-Using-Turvo-s-self-service-Public-API-and-webhooks
+    type: Documentation
+    note: Describes Turvo's self-service Public API and webhooks; confirms OAuth + API key and webhook delivery.
+  - url: https://help.turvo.com/hc/en-us/articles/1500002987041-Access-Turvo-s-Public-API-and-webhooks-documentation
+    type: Documentation
+    note: How to access the (tenant-gated) Public API and webhooks documentation.
+  - url: https://app.turvo.com/lobby/documentation
+    type: APIReference
+    note: Interactive API reference, behind a Turvo tenant login.
+  - url: https://help.loadops.com/using-your-turvo-integration-with-loadops
+    type: Documentation
+    note: Third-party integration guide confirming Client ID / Client Secret / API Key auth and shipment + carrier + webhook usage.
+  - url: https://turvo.com/connect/
+    type: Documentation
+    note: Turvo Integration Hub - REST endpoints, webhooks, and EDI translation; describes the API-first integration model.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket protocol surface exists on Turvo's own API. Turvo's public
+    real-time delivery is outbound HTTP webhooks layered on a request/response
+    REST API, so no AsyncAPI document was created. Endpoint paths were honestly
+    modeled (endpointsModeled: true) because Turvo's interactive reference is
+    tenant-gated and could not be fetched anonymously.

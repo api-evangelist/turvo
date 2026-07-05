@@ -1,0 +1,186 @@
+aid: turvo
+url: https://raw.githubusercontent.com/api-evangelist/turvo/refs/heads/main/apis.yml
+name: Turvo
+kind: company
+description: Turvo is a collaborative cloud transportation management system (TMS)
+  that unifies shippers, freight brokers, and carriers on a single real-time
+  platform. Its self-service Public API is a JSON REST interface (base
+  https://publicapi.turvo.com) secured with OAuth 2.0 plus a per-tenant API key,
+  covering shipments, orders, locations, accounts (customers), and carriers, with
+  event-driven webhooks for status changes and location updates. API credentials
+  and the interactive reference are provisioned per tenant from the API profile
+  inside the Turvo application, so the surface is self-serve for Turvo customers
+  rather than openly public.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Logistics
+- Transportation Management System
+- TMS
+- Supply Chain
+- Freight
+- Shipments
+- Carriers
+created: '2026-07-05'
+modified: '2026-07-05'
+specificationVersion: '0.19'
+apis:
+- aid: turvo:turvo-shipments-api
+  name: Turvo Shipments API
+  tags:
+  - Shipments
+  - Loads
+  - Freight
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://help.turvo.com/hc/en-us/sections/12970447299987-API-Documentation
+  baseURL: https://publicapi.turvo.com/v1
+  properties:
+  - url: https://help.turvo.com/hc/en-us/articles/4407388745619-Using-Turvo-s-self-service-Public-API-and-webhooks
+    type: Documentation
+  - url: https://app.turvo.com/lobby/documentation
+    type: APIReference
+  - url: openapi/turvo-openapi.yml
+    type: OpenAPI
+  - url: collections/turvo.postman_collection.json
+    type: PostmanCollection
+  - url: collections/turvo.opencollection.json
+    type: OpenCollection
+  description: Create, retrieve, list, update, and cancel shipments (loads) - the
+    core freight object in Turvo - including stops, items, costs, carrier
+    assignment, and lifecycle status. Endpoint paths are modeled from Turvo's
+    documented resource set; the live interactive reference is tenant-gated.
+- aid: turvo:turvo-orders-api
+  name: Turvo Orders API
+  tags:
+  - Orders
+  - Order Management
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://turvo.com/orders/
+  baseURL: https://publicapi.turvo.com/v1
+  properties:
+  - url: https://help.turvo.com/hc/en-us/articles/4407388745619-Using-Turvo-s-self-service-Public-API-and-webhooks
+    type: Documentation
+  - url: https://app.turvo.com/lobby/documentation
+    type: APIReference
+  - url: openapi/turvo-openapi.yml
+    type: OpenAPI
+  - url: collections/turvo.postman_collection.json
+    type: PostmanCollection
+  - url: collections/turvo.opencollection.json
+    type: OpenCollection
+  description: Manage orders - the customer-facing demand records that group line
+    items and ship-from / ship-to requirements before they are planned into
+    shipments. Create, retrieve, list, and update orders. Paths are modeled from
+    Turvo's documented order-management resource; the live reference is tenant-gated.
+- aid: turvo:turvo-locations-api
+  name: Turvo Locations API
+  tags:
+  - Locations
+  - Facilities
+  - Addresses
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://help.turvo.com/hc/en-us/sections/12970447299987-API-Documentation
+  baseURL: https://publicapi.turvo.com/v1
+  properties:
+  - url: https://help.turvo.com/hc/en-us/articles/4407388745619-Using-Turvo-s-self-service-Public-API-and-webhooks
+    type: Documentation
+  - url: https://app.turvo.com/lobby/documentation
+    type: APIReference
+  - url: openapi/turvo-openapi.yml
+    type: OpenAPI
+  - url: collections/turvo.postman_collection.json
+    type: PostmanCollection
+  - url: collections/turvo.opencollection.json
+    type: OpenCollection
+  description: Manage the location master - warehouses, distribution centers, and
+    facilities used as shipment stops - including addresses, geocoordinates,
+    contacts, and operating hours. Create, retrieve, list, and update locations.
+    Paths are modeled from Turvo's documented resource set; the reference is
+    tenant-gated.
+- aid: turvo:turvo-accounts-api
+  name: Turvo Accounts API
+  tags:
+  - Accounts
+  - Customers
+  - CRM
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://help.turvo.com/hc/en-us/sections/12970447299987-API-Documentation
+  baseURL: https://publicapi.turvo.com/v1
+  properties:
+  - url: https://help.turvo.com/hc/en-us/articles/4407388745619-Using-Turvo-s-self-service-Public-API-and-webhooks
+    type: Documentation
+  - url: https://app.turvo.com/lobby/documentation
+    type: APIReference
+  - url: openapi/turvo-openapi.yml
+    type: OpenAPI
+  - url: collections/turvo.postman_collection.json
+    type: PostmanCollection
+  - url: collections/turvo.opencollection.json
+    type: OpenCollection
+  description: Manage accounts - the customers, shippers, and business partners in a
+    Turvo tenant - including contacts, billing details, and relationships. Create,
+    retrieve, list, and update accounts. Paths are modeled from Turvo's documented
+    resource set; the reference is tenant-gated.
+- aid: turvo:turvo-carriers-api
+  name: Turvo Carriers API
+  tags:
+  - Carriers
+  - Capacity
+  - Fleet
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://turvo.com/carriers/
+  baseURL: https://publicapi.turvo.com/v1
+  properties:
+  - url: https://help.turvo.com/hc/en-us/articles/4407388745619-Using-Turvo-s-self-service-Public-API-and-webhooks
+    type: Documentation
+  - url: https://app.turvo.com/lobby/documentation
+    type: APIReference
+  - url: openapi/turvo-openapi.yml
+    type: OpenAPI
+  - url: collections/turvo.postman_collection.json
+    type: PostmanCollection
+  - url: collections/turvo.opencollection.json
+    type: OpenCollection
+  description: Manage carriers - the transportation providers hauling freight -
+    including compliance data, equipment, lanes, and contacts, so loads can be
+    tendered and assigned. Create, retrieve, list, and update carriers. Paths are
+    modeled from Turvo's documented resource set; the reference is tenant-gated.
+- aid: turvo:turvo-tracking-api
+  name: Turvo Tracking API
+  tags:
+  - Tracking
+  - Visibility
+  - Location Updates
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://help.turvo.com/hc/en-us/sections/12970447299987-API-Documentation
+  baseURL: https://publicapi.turvo.com/v1
+  properties:
+  - url: https://help.turvo.com/hc/en-us/articles/4407388745619-Using-Turvo-s-self-service-Public-API-and-webhooks
+    type: Documentation
+  - url: https://app.turvo.com/lobby/documentation
+    type: APIReference
+  - url: openapi/turvo-openapi.yml
+    type: OpenAPI
+  - url: collections/turvo.postman_collection.json
+    type: PostmanCollection
+  - url: collections/turvo.opencollection.json
+    type: OpenCollection
+  description: Post and retrieve real-time tracking - location updates (GPS pings)
+    and status milestones - against a shipment for in-transit visibility, and
+    subscribe to the matching webhook events. Paths are modeled from Turvo's
+    documented location-update and webhook surface; the reference is tenant-gated.
+common:
+- type: LinkedIn
+  url: https://www.linkedin.com/company/turvo
+- type: Website
+  url: https://turvo.com
+- type: Documentation
+  url: https://help.turvo.com/hc/en-us/sections/12970447299987-API-Documentation
+- type: Plans
+  url: plans/turvo-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/turvo-rate-limits.yml
+- type: FinOps
+  url: finops/turvo-finops.yml
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

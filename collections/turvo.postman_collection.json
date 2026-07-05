@@ -1,0 +1,287 @@
+{
+  "info": {
+    "name": "Turvo Public API",
+    "description": "JSON REST interface to the Turvo collaborative TMS - shipments, orders, locations, accounts (customers), carriers, and tracking/location updates. Base URL: https://publicapi.turvo.com/v1. Auth is OAuth 2.0 Bearer plus a per-tenant x-api-key header, both provisioned from the tenant API profile. NOTE: paths are honestly modeled from Turvo's documented resource set because the live interactive reference is tenant-gated.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      { "key": "token", "value": "{{accessToken}}", "type": "string" }
+    ]
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "https://publicapi.turvo.com/v1", "type": "string" },
+    { "key": "accessToken", "value": "", "type": "string" },
+    { "key": "apiKey", "value": "", "type": "string" }
+  ],
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Get access token",
+          "request": {
+            "auth": { "type": "noauth" },
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "x-api-key", "value": "{{apiKey}}" }
+            ],
+            "body": { "mode": "raw", "raw": "{\n  \"grant_type\": \"password\",\n  \"client_id\": \"\",\n  \"client_secret\": \"\",\n  \"username\": \"\",\n  \"password\": \"\",\n  \"scope\": \"read+trust+write\"\n}" },
+            "url": { "raw": "{{baseUrl}}/oauth/token", "host": ["{{baseUrl}}"], "path": ["oauth", "token"] },
+            "description": "Exchange tenant API credentials for an OAuth 2.0 Bearer access token. Send the x-api-key header."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Shipments",
+      "item": [
+        {
+          "name": "List shipments",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "x-api-key", "value": "{{apiKey}}" }],
+            "url": { "raw": "{{baseUrl}}/shipments/list?start=0&pageSize=50", "host": ["{{baseUrl}}"], "path": ["shipments", "list"], "query": [{ "key": "start", "value": "0" }, { "key": "pageSize", "value": "50" }] },
+            "description": "Lists shipments with pagination and filtering."
+          }
+        },
+        {
+          "name": "Create a shipment",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "x-api-key", "value": "{{apiKey}}" }],
+            "body": { "mode": "raw", "raw": "{\n  \"customId\": \"SHP-1001\",\n  \"globalRoute\": [],\n  \"items\": []\n}" },
+            "url": { "raw": "{{baseUrl}}/shipments", "host": ["{{baseUrl}}"], "path": ["shipments"] },
+            "description": "Creates a new shipment (load)."
+          }
+        },
+        {
+          "name": "Retrieve a shipment",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "x-api-key", "value": "{{apiKey}}" }],
+            "url": { "raw": "{{baseUrl}}/shipments/:id", "host": ["{{baseUrl}}"], "path": ["shipments", ":id"], "variable": [{ "key": "id", "value": "" }] },
+            "description": "Retrieves a single shipment by its Turvo ID."
+          }
+        },
+        {
+          "name": "Update a shipment",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "x-api-key", "value": "{{apiKey}}" }],
+            "body": { "mode": "raw", "raw": "{}" },
+            "url": { "raw": "{{baseUrl}}/shipments/:id", "host": ["{{baseUrl}}"], "path": ["shipments", ":id"], "variable": [{ "key": "id", "value": "" }] },
+            "description": "Updates an existing shipment."
+          }
+        },
+        {
+          "name": "Cancel a shipment",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "x-api-key", "value": "{{apiKey}}" }],
+            "url": { "raw": "{{baseUrl}}/shipments/:id", "host": ["{{baseUrl}}"], "path": ["shipments", ":id"], "variable": [{ "key": "id", "value": "" }] },
+            "description": "Cancels (soft-deletes) a shipment."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Orders",
+      "item": [
+        {
+          "name": "List orders",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "x-api-key", "value": "{{apiKey}}" }],
+            "url": { "raw": "{{baseUrl}}/orders/list?start=0&pageSize=50", "host": ["{{baseUrl}}"], "path": ["orders", "list"], "query": [{ "key": "start", "value": "0" }, { "key": "pageSize", "value": "50" }] },
+            "description": "Lists orders with pagination."
+          }
+        },
+        {
+          "name": "Create an order",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "x-api-key", "value": "{{apiKey}}" }],
+            "body": { "mode": "raw", "raw": "{\n  \"customId\": \"ORD-1001\",\n  \"items\": []\n}" },
+            "url": { "raw": "{{baseUrl}}/orders", "host": ["{{baseUrl}}"], "path": ["orders"] },
+            "description": "Creates a new order."
+          }
+        },
+        {
+          "name": "Retrieve an order",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "x-api-key", "value": "{{apiKey}}" }],
+            "url": { "raw": "{{baseUrl}}/orders/:id", "host": ["{{baseUrl}}"], "path": ["orders", ":id"], "variable": [{ "key": "id", "value": "" }] },
+            "description": "Retrieves a single order by its Turvo ID."
+          }
+        },
+        {
+          "name": "Update an order",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "x-api-key", "value": "{{apiKey}}" }],
+            "body": { "mode": "raw", "raw": "{}" },
+            "url": { "raw": "{{baseUrl}}/orders/:id", "host": ["{{baseUrl}}"], "path": ["orders", ":id"], "variable": [{ "key": "id", "value": "" }] },
+            "description": "Updates an existing order."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Locations",
+      "item": [
+        {
+          "name": "List locations",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "x-api-key", "value": "{{apiKey}}" }],
+            "url": { "raw": "{{baseUrl}}/locations/list?start=0&pageSize=50", "host": ["{{baseUrl}}"], "path": ["locations", "list"], "query": [{ "key": "start", "value": "0" }, { "key": "pageSize", "value": "50" }] },
+            "description": "Lists locations (facilities)."
+          }
+        },
+        {
+          "name": "Create a location",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "x-api-key", "value": "{{apiKey}}" }],
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"Dallas DC\",\n  \"address\": {}\n}" },
+            "url": { "raw": "{{baseUrl}}/locations", "host": ["{{baseUrl}}"], "path": ["locations"] },
+            "description": "Creates a new location."
+          }
+        },
+        {
+          "name": "Retrieve a location",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "x-api-key", "value": "{{apiKey}}" }],
+            "url": { "raw": "{{baseUrl}}/locations/:id", "host": ["{{baseUrl}}"], "path": ["locations", ":id"], "variable": [{ "key": "id", "value": "" }] },
+            "description": "Retrieves a single location by its Turvo ID."
+          }
+        },
+        {
+          "name": "Update a location",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "x-api-key", "value": "{{apiKey}}" }],
+            "body": { "mode": "raw", "raw": "{}" },
+            "url": { "raw": "{{baseUrl}}/locations/:id", "host": ["{{baseUrl}}"], "path": ["locations", ":id"], "variable": [{ "key": "id", "value": "" }] },
+            "description": "Updates an existing location."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Accounts",
+      "item": [
+        {
+          "name": "List accounts",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "x-api-key", "value": "{{apiKey}}" }],
+            "url": { "raw": "{{baseUrl}}/accounts/list?start=0&pageSize=50", "host": ["{{baseUrl}}"], "path": ["accounts", "list"], "query": [{ "key": "start", "value": "0" }, { "key": "pageSize", "value": "50" }] },
+            "description": "Lists accounts (customers)."
+          }
+        },
+        {
+          "name": "Create an account",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "x-api-key", "value": "{{apiKey}}" }],
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"Acme Foods\",\n  \"type\": \"customer\"\n}" },
+            "url": { "raw": "{{baseUrl}}/accounts", "host": ["{{baseUrl}}"], "path": ["accounts"] },
+            "description": "Creates a new account."
+          }
+        },
+        {
+          "name": "Retrieve an account",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "x-api-key", "value": "{{apiKey}}" }],
+            "url": { "raw": "{{baseUrl}}/accounts/:id", "host": ["{{baseUrl}}"], "path": ["accounts", ":id"], "variable": [{ "key": "id", "value": "" }] },
+            "description": "Retrieves a single account by its Turvo ID."
+          }
+        },
+        {
+          "name": "Update an account",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "x-api-key", "value": "{{apiKey}}" }],
+            "body": { "mode": "raw", "raw": "{}" },
+            "url": { "raw": "{{baseUrl}}/accounts/:id", "host": ["{{baseUrl}}"], "path": ["accounts", ":id"], "variable": [{ "key": "id", "value": "" }] },
+            "description": "Updates an existing account."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Carriers",
+      "item": [
+        {
+          "name": "List carriers",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "x-api-key", "value": "{{apiKey}}" }],
+            "url": { "raw": "{{baseUrl}}/carriers/list?start=0&pageSize=50", "host": ["{{baseUrl}}"], "path": ["carriers", "list"], "query": [{ "key": "start", "value": "0" }, { "key": "pageSize", "value": "50" }] },
+            "description": "Lists carriers."
+          }
+        },
+        {
+          "name": "Create a carrier",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "x-api-key", "value": "{{apiKey}}" }],
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"Blue Line Trucking\",\n  \"mcNumber\": \"\",\n  \"dotNumber\": \"\"\n}" },
+            "url": { "raw": "{{baseUrl}}/carriers", "host": ["{{baseUrl}}"], "path": ["carriers"] },
+            "description": "Creates a new carrier."
+          }
+        },
+        {
+          "name": "Retrieve a carrier",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "x-api-key", "value": "{{apiKey}}" }],
+            "url": { "raw": "{{baseUrl}}/carriers/:id", "host": ["{{baseUrl}}"], "path": ["carriers", ":id"], "variable": [{ "key": "id", "value": "" }] },
+            "description": "Retrieves a single carrier by its Turvo ID."
+          }
+        },
+        {
+          "name": "Update a carrier",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "x-api-key", "value": "{{apiKey}}" }],
+            "body": { "mode": "raw", "raw": "{}" },
+            "url": { "raw": "{{baseUrl}}/carriers/:id", "host": ["{{baseUrl}}"], "path": ["carriers", ":id"], "variable": [{ "key": "id", "value": "" }] },
+            "description": "Updates an existing carrier."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Tracking",
+      "item": [
+        {
+          "name": "List tracking updates for a shipment",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "x-api-key", "value": "{{apiKey}}" }],
+            "url": { "raw": "{{baseUrl}}/shipments/:id/locationUpdates", "host": ["{{baseUrl}}"], "path": ["shipments", ":id", "locationUpdates"], "variable": [{ "key": "id", "value": "" }] },
+            "description": "Retrieves recorded location updates and status milestones for a shipment."
+          }
+        },
+        {
+          "name": "Post a tracking update for a shipment",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "x-api-key", "value": "{{apiKey}}" }],
+            "body": { "mode": "raw", "raw": "{\n  \"timestamp\": \"2026-07-05T12:00:00Z\",\n  \"latitude\": 32.7767,\n  \"longitude\": -96.7970,\n  \"milestone\": \"in-transit\"\n}" },
+            "url": { "raw": "{{baseUrl}}/shipments/:id/locationUpdates", "host": ["{{baseUrl}}"], "path": ["shipments", ":id", "locationUpdates"], "variable": [{ "key": "id", "value": "" }] },
+            "description": "Records a real-time GPS location ping or status milestone against a shipment."
+          }
+        }
+      ]
+    }
+  ]
+}

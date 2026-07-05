@@ -1,0 +1,91 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Turvo
+providerId: turvo
+created: '2026-07-05'
+modified: '2026-07-05'
+reconciled: false
+tags:
+- Logistics
+- TMS
+- Freight
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of Turvo spend. Turvo is sold as an enterprise SaaS
+  transportation management system; the Public API and webhooks are a platform
+  capability rather than a separately metered, usage-billed product. There is
+  no public per-call API price. The dominant, recurring cost is the negotiated
+  platform subscription (by edition, seats, modules, and volume). Cost
+  optimization for API consumers is therefore about integration efficiency -
+  using bulk endpoints and webhooks instead of high-frequency polling, and
+  scoping a sandbox tenant for testing - not about shaving per-request fees.
+notes: >-
+  Turvo does not publish API unit rates; subscription terms are negotiated per
+  contract. Verify billing model, included integration/API entitlements, and
+  any overage terms directly with Turvo during reconciliation.
+sources:
+- https://turvo.com/
+- https://turvo.com/transportation-management-system/
+- https://help.turvo.com/hc/en-us/sections/12970447299987-API-Documentation
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Turvo
+serviceCategory: Logistics and Supply Chain Software
+billingModel:
+  pricingCategory: Subscription
+  billingFrequency: Annual
+  billingCurrency: USD
+  chargeCategories:
+  - Purchase
+  - Usage
+focusColumns:
+  ServiceName: Turvo TMS Platform
+  ServiceCategory: Logistics and Supply Chain Software
+  ProviderName: Turvo
+  PublisherName: Turvo
+  InvoiceIssuerName: Turvo
+  BillingCurrency: USD
+  ChargeCategory: Purchase
+  PricingCategory: Subscription
+meters:
+- name: platform_subscription
+  description: Negotiated enterprise subscription to the Turvo TMS platform, including API and webhook capability.
+  unit: contract
+  aggregation: sum
+  dimensions:
+  - account
+  - edition
+- name: api_requests
+  description: Public API calls made by tenant integrations; not separately metered/billed by Turvo, tracked for efficiency.
+  unit: requests
+  aggregation: sum
+  dimensions:
+  - tenant
+  - endpoint
+- name: webhook_events
+  description: Webhook notifications delivered to subscriber endpoints on shipment, order, and tracking changes.
+  unit: events
+  aggregation: sum
+  dimensions:
+  - tenant
+  - subscription
+principles:
+- name: Visibility
+  description: Track API call volume and webhook subscriptions per integration even though Turvo does not bill per call, to catch inefficient polling.
+- name: Allocation
+  description: Map the Turvo subscription and integration effort to the teams and workflows (brokerage, shipping, carrier ops) that consume it.
+- name: Optimization
+  description: Prefer bulk endpoints and webhooks over high-frequency polling; use a sandbox tenant for testing to avoid production churn.
+- name: Accountability
+  description: Assign an owner for the Turvo integration and review subscription entitlements against actual usage at renewal.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

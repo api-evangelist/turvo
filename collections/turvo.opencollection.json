@@ -1,0 +1,176 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Turvo Public API",
+    "version": "1.0",
+    "description": "JSON REST interface to the Turvo collaborative TMS - shipments, orders, locations, accounts, carriers, and tracking. Base URL https://publicapi.turvo.com/v1. OAuth 2.0 Bearer plus per-tenant x-api-key. Paths are honestly modeled from Turvo's documented resource set; the live reference is tenant-gated."
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{accessToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": { "name": "Authentication", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Get access token.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://publicapi.turvo.com/v1/oauth/token",
+            "headers": [{ "name": "x-api-key", "value": "{{apiKey}}" }],
+            "body": { "type": "json", "data": "{\"grant_type\":\"password\",\"client_id\":\"\",\"client_secret\":\"\",\"username\":\"\",\"password\":\"\",\"scope\":\"read+trust+write\"}" }
+          },
+          "docs": "Exchange tenant API credentials for an OAuth 2.0 Bearer access token."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Shipments", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List shipments.", "type": "http" },
+          "http": { "method": "GET", "url": "https://publicapi.turvo.com/v1/shipments/list", "headers": [{ "name": "x-api-key", "value": "{{apiKey}}" }] },
+          "docs": "Lists shipments with pagination and filtering."
+        },
+        {
+          "info": { "name": "Create a shipment.", "type": "http" },
+          "http": { "method": "POST", "url": "https://publicapi.turvo.com/v1/shipments", "headers": [{ "name": "x-api-key", "value": "{{apiKey}}" }], "body": { "type": "json", "data": "{}" } },
+          "docs": "Creates a new shipment (load)."
+        },
+        {
+          "info": { "name": "Retrieve a shipment.", "type": "http" },
+          "http": { "method": "GET", "url": "https://publicapi.turvo.com/v1/shipments/:id", "headers": [{ "name": "x-api-key", "value": "{{apiKey}}" }], "params": [{ "name": "id", "value": "", "type": "path", "description": "The Turvo shipment ID." }] },
+          "docs": "Retrieves a single shipment by its Turvo ID."
+        },
+        {
+          "info": { "name": "Update a shipment.", "type": "http" },
+          "http": { "method": "PUT", "url": "https://publicapi.turvo.com/v1/shipments/:id", "headers": [{ "name": "x-api-key", "value": "{{apiKey}}" }], "params": [{ "name": "id", "value": "", "type": "path", "description": "The Turvo shipment ID." }], "body": { "type": "json", "data": "{}" } },
+          "docs": "Updates an existing shipment."
+        },
+        {
+          "info": { "name": "Cancel a shipment.", "type": "http" },
+          "http": { "method": "DELETE", "url": "https://publicapi.turvo.com/v1/shipments/:id", "headers": [{ "name": "x-api-key", "value": "{{apiKey}}" }], "params": [{ "name": "id", "value": "", "type": "path", "description": "The Turvo shipment ID." }] },
+          "docs": "Cancels (soft-deletes) a shipment."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Orders", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List orders.", "type": "http" },
+          "http": { "method": "GET", "url": "https://publicapi.turvo.com/v1/orders/list", "headers": [{ "name": "x-api-key", "value": "{{apiKey}}" }] },
+          "docs": "Lists orders with pagination."
+        },
+        {
+          "info": { "name": "Create an order.", "type": "http" },
+          "http": { "method": "POST", "url": "https://publicapi.turvo.com/v1/orders", "headers": [{ "name": "x-api-key", "value": "{{apiKey}}" }], "body": { "type": "json", "data": "{}" } },
+          "docs": "Creates a new order."
+        },
+        {
+          "info": { "name": "Retrieve an order.", "type": "http" },
+          "http": { "method": "GET", "url": "https://publicapi.turvo.com/v1/orders/:id", "headers": [{ "name": "x-api-key", "value": "{{apiKey}}" }], "params": [{ "name": "id", "value": "", "type": "path", "description": "The Turvo order ID." }] },
+          "docs": "Retrieves a single order by its Turvo ID."
+        },
+        {
+          "info": { "name": "Update an order.", "type": "http" },
+          "http": { "method": "PUT", "url": "https://publicapi.turvo.com/v1/orders/:id", "headers": [{ "name": "x-api-key", "value": "{{apiKey}}" }], "params": [{ "name": "id", "value": "", "type": "path", "description": "The Turvo order ID." }], "body": { "type": "json", "data": "{}" } },
+          "docs": "Updates an existing order."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Locations", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List locations.", "type": "http" },
+          "http": { "method": "GET", "url": "https://publicapi.turvo.com/v1/locations/list", "headers": [{ "name": "x-api-key", "value": "{{apiKey}}" }] },
+          "docs": "Lists locations (facilities)."
+        },
+        {
+          "info": { "name": "Create a location.", "type": "http" },
+          "http": { "method": "POST", "url": "https://publicapi.turvo.com/v1/locations", "headers": [{ "name": "x-api-key", "value": "{{apiKey}}" }], "body": { "type": "json", "data": "{}" } },
+          "docs": "Creates a new location."
+        },
+        {
+          "info": { "name": "Retrieve a location.", "type": "http" },
+          "http": { "method": "GET", "url": "https://publicapi.turvo.com/v1/locations/:id", "headers": [{ "name": "x-api-key", "value": "{{apiKey}}" }], "params": [{ "name": "id", "value": "", "type": "path", "description": "The Turvo location ID." }] },
+          "docs": "Retrieves a single location by its Turvo ID."
+        },
+        {
+          "info": { "name": "Update a location.", "type": "http" },
+          "http": { "method": "PUT", "url": "https://publicapi.turvo.com/v1/locations/:id", "headers": [{ "name": "x-api-key", "value": "{{apiKey}}" }], "params": [{ "name": "id", "value": "", "type": "path", "description": "The Turvo location ID." }], "body": { "type": "json", "data": "{}" } },
+          "docs": "Updates an existing location."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Accounts", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List accounts.", "type": "http" },
+          "http": { "method": "GET", "url": "https://publicapi.turvo.com/v1/accounts/list", "headers": [{ "name": "x-api-key", "value": "{{apiKey}}" }] },
+          "docs": "Lists accounts (customers)."
+        },
+        {
+          "info": { "name": "Create an account.", "type": "http" },
+          "http": { "method": "POST", "url": "https://publicapi.turvo.com/v1/accounts", "headers": [{ "name": "x-api-key", "value": "{{apiKey}}" }], "body": { "type": "json", "data": "{}" } },
+          "docs": "Creates a new account."
+        },
+        {
+          "info": { "name": "Retrieve an account.", "type": "http" },
+          "http": { "method": "GET", "url": "https://publicapi.turvo.com/v1/accounts/:id", "headers": [{ "name": "x-api-key", "value": "{{apiKey}}" }], "params": [{ "name": "id", "value": "", "type": "path", "description": "The Turvo account ID." }] },
+          "docs": "Retrieves a single account by its Turvo ID."
+        },
+        {
+          "info": { "name": "Update an account.", "type": "http" },
+          "http": { "method": "PUT", "url": "https://publicapi.turvo.com/v1/accounts/:id", "headers": [{ "name": "x-api-key", "value": "{{apiKey}}" }], "params": [{ "name": "id", "value": "", "type": "path", "description": "The Turvo account ID." }], "body": { "type": "json", "data": "{}" } },
+          "docs": "Updates an existing account."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Carriers", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List carriers.", "type": "http" },
+          "http": { "method": "GET", "url": "https://publicapi.turvo.com/v1/carriers/list", "headers": [{ "name": "x-api-key", "value": "{{apiKey}}" }] },
+          "docs": "Lists carriers."
+        },
+        {
+          "info": { "name": "Create a carrier.", "type": "http" },
+          "http": { "method": "POST", "url": "https://publicapi.turvo.com/v1/carriers", "headers": [{ "name": "x-api-key", "value": "{{apiKey}}" }], "body": { "type": "json", "data": "{}" } },
+          "docs": "Creates a new carrier."
+        },
+        {
+          "info": { "name": "Retrieve a carrier.", "type": "http" },
+          "http": { "method": "GET", "url": "https://publicapi.turvo.com/v1/carriers/:id", "headers": [{ "name": "x-api-key", "value": "{{apiKey}}" }], "params": [{ "name": "id", "value": "", "type": "path", "description": "The Turvo carrier ID." }] },
+          "docs": "Retrieves a single carrier by its Turvo ID."
+        },
+        {
+          "info": { "name": "Update a carrier.", "type": "http" },
+          "http": { "method": "PUT", "url": "https://publicapi.turvo.com/v1/carriers/:id", "headers": [{ "name": "x-api-key", "value": "{{apiKey}}" }], "params": [{ "name": "id", "value": "", "type": "path", "description": "The Turvo carrier ID." }], "body": { "type": "json", "data": "{}" } },
+          "docs": "Updates an existing carrier."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Tracking", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List tracking updates for a shipment.", "type": "http" },
+          "http": { "method": "GET", "url": "https://publicapi.turvo.com/v1/shipments/:id/locationUpdates", "headers": [{ "name": "x-api-key", "value": "{{apiKey}}" }], "params": [{ "name": "id", "value": "", "type": "path", "description": "The Turvo shipment ID." }] },
+          "docs": "Retrieves recorded location updates and status milestones for a shipment."
+        },
+        {
+          "info": { "name": "Post a tracking update for a shipment.", "type": "http" },
+          "http": { "method": "POST", "url": "https://publicapi.turvo.com/v1/shipments/:id/locationUpdates", "headers": [{ "name": "x-api-key", "value": "{{apiKey}}" }], "params": [{ "name": "id", "value": "", "type": "path", "description": "The Turvo shipment ID." }], "body": { "type": "json", "data": "{}" } },
+          "docs": "Records a real-time GPS location ping or status milestone against a shipment."
+        }
+      ]
+    }
+  ]
+}

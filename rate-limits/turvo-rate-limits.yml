@@ -1,0 +1,59 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Turvo
+providerId: turvo
+created: '2026-07-05'
+modified: '2026-07-05'
+reconciled: false
+tags:
+- Logistics
+- TMS
+- Freight
+- Rate Limiting
+- Quotas
+description: >-
+  Turvo does not publish fixed numeric rate limits for its Public API in
+  openly accessible documentation; specific throttles are defined per tenant
+  and surfaced in the tenant-gated API reference. Turvo does provide bulk
+  endpoints that accept thousands of records in a single call, which is the
+  recommended pattern for high-volume synchronization rather than issuing many
+  single-record requests. Real-time change notification is delivered by
+  webhooks (server push to a subscriber URL), reducing the need for aggressive
+  polling. Clients should implement backoff and honor any 429 responses.
+notes: >-
+  Numeric per-tenant or per-endpoint request limits are not published publicly
+  as of the review date. Verify exact limits, bulk batch sizes, and webhook
+  retry behavior against your tenant's API reference during reconciliation.
+sources:
+- https://help.turvo.com/hc/en-us/sections/12970447299987-API-Documentation
+- https://help.turvo.com/hc/en-us/articles/4407388745619-Using-Turvo-s-self-service-Public-API-and-webhooks
+- https://turvo.com/connect/
+responseCodes:
+  throttled: 429
+limits:
+- name: Public API Requests
+  scope: tenant
+  metric: requests
+  limit: not published
+  notes: No fixed numeric request-rate limit is published publicly; defined per tenant.
+- name: Bulk Endpoint Batch
+  scope: request
+  metric: records
+  limit: bulk (thousands per call)
+  notes: Bulk endpoints accept large batches in one call; preferred over many single-record requests.
+- name: Webhook Delivery
+  scope: subscription
+  metric: events
+  limit: event-driven
+  notes: Webhooks push notifications to a subscriber URL on shipment, order, and tracking changes.
+policies:
+- name: Bulk Preferred
+  description: Use bulk endpoints for high-volume synchronization instead of many single-record calls.
+- name: Webhook Over Polling
+  description: Subscribe to webhooks for status and location changes rather than polling list endpoints.
+- name: Backoff Strategy
+  description: Implement exponential backoff with jitter and honor Retry-After on 429 responses.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

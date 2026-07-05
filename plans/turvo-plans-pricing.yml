@@ -1,0 +1,59 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Turvo
+providerId: turvo
+created: '2026-07-05'
+modified: '2026-07-05'
+reconciled: false
+tags:
+- Logistics
+- TMS
+- Freight
+- Plans
+description: >-
+  Turvo does not publish public, self-serve API pricing. The Public API and
+  webhooks are a capability of the Turvo TMS platform, which is sold as an
+  enterprise SaaS subscription to shippers, freight brokers, and carriers via
+  a sales-led process. API access, credentials, and a sandbox tenant are
+  provisioned as part of a customer's Turvo subscription rather than purchased
+  separately. Seat, module, and volume terms are negotiated per contract.
+notes: >-
+  No public price list or free self-signup tier for the API was found. Pricing
+  is contact-sales / enterprise. Confirm current packaging (platform edition,
+  included modules, API and integration entitlements, sandbox access) directly
+  with Turvo during reconciliation.
+sources:
+- https://turvo.com/
+- https://turvo.com/transportation-management-system/
+- https://help.turvo.com/hc/en-us/sections/12970447299987-API-Documentation
+- https://turvo.com/connect/
+plans:
+- id: turvo-platform
+  name: Turvo TMS Platform (Enterprise)
+  type: enterprise
+  description: >-
+    Enterprise SaaS subscription to the Turvo collaborative TMS. The Public
+    API and webhooks are included as a platform capability; credentials and a
+    sandbox tenant are provisioned to the customer. Pricing, edition, and
+    included modules are negotiated per contract.
+  entries:
+  - label: Platform Subscription
+    name: platform_subscription
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: Public API Access
+  - name: Webhooks
+  - name: Sandbox Tenant
+  - name: Integration Hub
+  - name: Support and Onboarding
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
