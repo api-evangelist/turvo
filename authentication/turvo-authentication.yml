@@ -1,0 +1,24 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/turvo-openapi.yml
+summary:
+  types:
+  - apiKey
+  - http
+  api_key_in:
+  - header
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  description: 'OAuth 2.0 Bearer access token obtained from POST /oauth/token. Passed as Authorization:
+    Bearer YOUR_ACCESS_TOKEN.'
+  sources:
+  - openapi/turvo-openapi.yml
+- name: apiKeyAuth
+  type: apiKey
+  in: header
+  parameter: x-api-key
+  description: Per-tenant API key from the Turvo tenant API profile, sent on every request.
+  sources:
+  - openapi/turvo-openapi.yml
