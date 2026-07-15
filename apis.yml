@@ -169,6 +169,8 @@ apis:
     subscribe to the matching webhook events. Paths are modeled from Turvo's
     documented location-update and webhook surface; the reference is tenant-gated.
 common:
+- type: AgenticAccess
+  url: agentic-access/turvo-agentic-access.yml
 - type: DomainSecurity
   url: security/turvo-domain-security.yml
 - type: Authentication
