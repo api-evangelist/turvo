@@ -12,7 +12,7 @@ schemes:
   type: http
   scheme: bearer
   description: 'OAuth 2.0 Bearer access token obtained from POST /oauth/token. Passed as Authorization:
-    Bearer YOUR_ACCESS_TOKEN.'
+    Bearer [example key]'
   sources:
   - openapi/turvo-openapi.yml
 - name: apiKeyAuth
