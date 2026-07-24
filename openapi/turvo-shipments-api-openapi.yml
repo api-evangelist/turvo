@@ -1,0 +1,313 @@
+openapi: 3.0.3
+info:
+  title: Turvo Public Accounts Shipments API
+  description: 'The Turvo Public API is a JSON REST interface to the Turvo collaborative transportation management system (TMS). It exposes the core logistics objects - shipments, orders, locations, accounts (customers), and carriers - plus real-time tracking via location updates and event-driven webhooks.
+
+    ACCESS MODEL: The API is self-service but tenant-gated. Credentials (Client ID, Client Secret, API Key) are provisioned from the API profile inside a customer''s Turvo tenant, and the live interactive reference sits behind a Turvo login at app.turvo.com/lobby/documentation. A sandbox tenant is available for testing.
+
+    MODELING NOTE: Because Turvo''s interactive reference is tenant-gated, the endpoint paths, parameters, and schemas in this document are HONESTLY MODELED from Turvo''s publicly described resource set and its documented OAuth 2.0 + x-api-key authentication pattern. They are a faithful structural model of the v1 API, not a verbatim copy of the live specification; confirm exact fields against your tenant''s own reference.'
+  version: '1.0'
+  contact:
+    name: Turvo
+    url: https://turvo.com
+servers:
+- url: https://publicapi.turvo.com/v1
+  description: Turvo Public API (production)
+- url: https://my-sandbox.turvo.com/v1
+  description: Sandbox tenant (per-tenant host; replace with your sandbox subdomain)
+security:
+- bearerAuth: []
+  apiKeyAuth: []
+tags:
+- name: Shipments
+  description: Freight loads - the core shipment object in Turvo.
+paths:
+  /shipments/list:
+    get:
+      operationId: listShipments
+      tags:
+      - Shipments
+      summary: List shipments
+      description: Lists shipments in the tenant, with pagination and filtering.
+      parameters:
+      - $ref: '#/components/parameters/Start'
+      - $ref: '#/components/parameters/PageSize'
+      - $ref: '#/components/parameters/StatusFilter'
+      responses:
+        '200':
+          description: A page of shipments.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShipmentList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /shipments:
+    post:
+      operationId: createShipment
+      tags:
+      - Shipments
+      summary: Create a shipment
+      description: Creates a new shipment (load) with stops, items, and costs.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Shipment'
+      responses:
+        '200':
+          description: The created shipment.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Shipment'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /shipments/{id}:
+    parameters:
+    - $ref: '#/components/parameters/Id'
+    get:
+      operationId: getShipment
+      tags:
+      - Shipments
+      summary: Retrieve a shipment
+      description: Retrieves a single shipment by its Turvo ID.
+      responses:
+        '200':
+          description: The requested shipment.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Shipment'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateShipment
+      tags:
+      - Shipments
+      summary: Update a shipment
+      description: Updates an existing shipment - stops, status, carrier, or costs.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Shipment'
+      responses:
+        '200':
+          description: The updated shipment.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Shipment'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    delete:
+      operationId: cancelShipment
+      tags:
+      - Shipments
+      summary: Cancel a shipment
+      description: Cancels (soft-deletes) a shipment.
+      responses:
+        '200':
+          description: Cancellation result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  parameters:
+    PageSize:
+      name: pageSize
+      in: query
+      required: false
+      description: Maximum number of records to return per page.
+      schema:
+        type: integer
+        default: 50
+    Id:
+      name: id
+      in: path
+      required: true
+      description: The Turvo resource ID.
+      schema:
+        type: string
+    Start:
+      name: start
+      in: query
+      required: false
+      description: Zero-based offset of the first record to return.
+      schema:
+        type: integer
+        default: 0
+    StatusFilter:
+      name: status
+      in: query
+      required: false
+      description: Filter by shipment lifecycle status code.
+      schema:
+        type: string
+  schemas:
+    Shipment:
+      type: object
+      properties:
+        id:
+          type: string
+        customId:
+          type: string
+          description: Human-readable shipment/load number.
+        status:
+          type: object
+          properties:
+            code:
+              type: string
+            description:
+              type: string
+        startDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
+        lane:
+          type: object
+          properties:
+            start:
+              type: string
+            end:
+              type: string
+        globalRoute:
+          type: array
+          description: Ordered stops (pickup and delivery) for the shipment.
+          items:
+            $ref: '#/components/schemas/Stop'
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ShipmentItem'
+        carrier:
+          type: object
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+        costs:
+          type: object
+          additionalProperties: true
+    Stop:
+      type: object
+      properties:
+        sequence:
+          type: integer
+        stopType:
+          type: string
+          description: Pickup or delivery.
+        location:
+          $ref: '#/components/schemas/LocationRef'
+        appointment:
+          type: object
+          properties:
+            date:
+              type: string
+              format: date-time
+            timezone:
+              type: string
+    ShipmentList:
+      type: object
+      properties:
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/Shipment'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+    Pagination:
+      type: object
+      properties:
+        start:
+          type: integer
+        pageSize:
+          type: integer
+        totalRecordsInPage:
+          type: integer
+        moreAvailable:
+          type: boolean
+    LocationRef:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+    DeleteResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        deleted:
+          type: boolean
+    Error:
+      type: object
+      properties:
+        Status:
+          type: string
+          example: error
+        code:
+          type: integer
+        message:
+          type: string
+        details:
+          type: object
+          additionalProperties: true
+    ShipmentItem:
+      type: object
+      properties:
+        name:
+          type: string
+        quantity:
+          type: number
+        weight:
+          type: number
+        weightUnits:
+          type: string
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid Bearer token or API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ValidationError:
+      description: The request payload failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'OAuth 2.0 Bearer access token obtained from POST /oauth/token. Passed as Authorization: Bearer YOUR_ACCESS_TOKEN.'
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: Per-tenant API key from the Turvo tenant API profile, sent on every request.

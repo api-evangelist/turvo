@@ -1,0 +1,247 @@
+openapi: 3.0.3
+info:
+  title: Turvo Public Accounts Orders API
+  description: 'The Turvo Public API is a JSON REST interface to the Turvo collaborative transportation management system (TMS). It exposes the core logistics objects - shipments, orders, locations, accounts (customers), and carriers - plus real-time tracking via location updates and event-driven webhooks.
+
+    ACCESS MODEL: The API is self-service but tenant-gated. Credentials (Client ID, Client Secret, API Key) are provisioned from the API profile inside a customer''s Turvo tenant, and the live interactive reference sits behind a Turvo login at app.turvo.com/lobby/documentation. A sandbox tenant is available for testing.
+
+    MODELING NOTE: Because Turvo''s interactive reference is tenant-gated, the endpoint paths, parameters, and schemas in this document are HONESTLY MODELED from Turvo''s publicly described resource set and its documented OAuth 2.0 + x-api-key authentication pattern. They are a faithful structural model of the v1 API, not a verbatim copy of the live specification; confirm exact fields against your tenant''s own reference.'
+  version: '1.0'
+  contact:
+    name: Turvo
+    url: https://turvo.com
+servers:
+- url: https://publicapi.turvo.com/v1
+  description: Turvo Public API (production)
+- url: https://my-sandbox.turvo.com/v1
+  description: Sandbox tenant (per-tenant host; replace with your sandbox subdomain)
+security:
+- bearerAuth: []
+  apiKeyAuth: []
+tags:
+- name: Orders
+  description: Customer demand records planned into shipments.
+paths:
+  /orders/list:
+    get:
+      operationId: listOrders
+      tags:
+      - Orders
+      summary: List orders
+      description: Lists orders in the tenant, with pagination and filtering.
+      parameters:
+      - $ref: '#/components/parameters/Start'
+      - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: A page of orders.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /orders:
+    post:
+      operationId: createOrder
+      tags:
+      - Orders
+      summary: Create an order
+      description: Creates a new order with line items and ship-from / ship-to detail.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Order'
+      responses:
+        '200':
+          description: The created order.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /orders/{id}:
+    parameters:
+    - $ref: '#/components/parameters/Id'
+    get:
+      operationId: getOrder
+      tags:
+      - Orders
+      summary: Retrieve an order
+      description: Retrieves a single order by its Turvo ID.
+      responses:
+        '200':
+          description: The requested order.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateOrder
+      tags:
+      - Orders
+      summary: Update an order
+      description: Updates an existing order.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Order'
+      responses:
+        '200':
+          description: The updated order.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+components:
+  schemas:
+    AccountRef:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+    OrderList:
+      type: object
+      properties:
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/Order'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+    Pagination:
+      type: object
+      properties:
+        start:
+          type: integer
+        pageSize:
+          type: integer
+        totalRecordsInPage:
+          type: integer
+        moreAvailable:
+          type: boolean
+    LocationRef:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+    Error:
+      type: object
+      properties:
+        Status:
+          type: string
+          example: error
+        code:
+          type: integer
+        message:
+          type: string
+        details:
+          type: object
+          additionalProperties: true
+    Order:
+      type: object
+      properties:
+        id:
+          type: string
+        customId:
+          type: string
+        status:
+          type: object
+          properties:
+            code:
+              type: string
+            description:
+              type: string
+        customer:
+          $ref: '#/components/schemas/AccountRef'
+        shipFrom:
+          $ref: '#/components/schemas/LocationRef'
+        shipTo:
+          $ref: '#/components/schemas/LocationRef'
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ShipmentItem'
+    ShipmentItem:
+      type: object
+      properties:
+        name:
+          type: string
+        quantity:
+          type: number
+        weight:
+          type: number
+        weightUnits:
+          type: string
+  parameters:
+    PageSize:
+      name: pageSize
+      in: query
+      required: false
+      description: Maximum number of records to return per page.
+      schema:
+        type: integer
+        default: 50
+    Id:
+      name: id
+      in: path
+      required: true
+      description: The Turvo resource ID.
+      schema:
+        type: string
+    Start:
+      name: start
+      in: query
+      required: false
+      description: Zero-based offset of the first record to return.
+      schema:
+        type: integer
+        default: 0
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid Bearer token or API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ValidationError:
+      description: The request payload failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'OAuth 2.0 Bearer access token obtained from POST /oauth/token. Passed as Authorization: Bearer YOUR_ACCESS_TOKEN.'
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: Per-tenant API key from the Turvo tenant API profile, sent on every request.

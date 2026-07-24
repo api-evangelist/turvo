@@ -1,0 +1,143 @@
+openapi: 3.0.3
+info:
+  title: Turvo Public Accounts Tracking API
+  description: 'The Turvo Public API is a JSON REST interface to the Turvo collaborative transportation management system (TMS). It exposes the core logistics objects - shipments, orders, locations, accounts (customers), and carriers - plus real-time tracking via location updates and event-driven webhooks.
+
+    ACCESS MODEL: The API is self-service but tenant-gated. Credentials (Client ID, Client Secret, API Key) are provisioned from the API profile inside a customer''s Turvo tenant, and the live interactive reference sits behind a Turvo login at app.turvo.com/lobby/documentation. A sandbox tenant is available for testing.
+
+    MODELING NOTE: Because Turvo''s interactive reference is tenant-gated, the endpoint paths, parameters, and schemas in this document are HONESTLY MODELED from Turvo''s publicly described resource set and its documented OAuth 2.0 + x-api-key authentication pattern. They are a faithful structural model of the v1 API, not a verbatim copy of the live specification; confirm exact fields against your tenant''s own reference.'
+  version: '1.0'
+  contact:
+    name: Turvo
+    url: https://turvo.com
+servers:
+- url: https://publicapi.turvo.com/v1
+  description: Turvo Public API (production)
+- url: https://my-sandbox.turvo.com/v1
+  description: Sandbox tenant (per-tenant host; replace with your sandbox subdomain)
+security:
+- bearerAuth: []
+  apiKeyAuth: []
+tags:
+- name: Tracking
+  description: Real-time location updates and status milestones on a shipment.
+paths:
+  /shipments/{id}/locationUpdates:
+    parameters:
+    - $ref: '#/components/parameters/Id'
+    get:
+      operationId: listLocationUpdates
+      tags:
+      - Tracking
+      summary: List tracking updates for a shipment
+      description: Retrieves the recorded location updates and status milestones for a shipment.
+      responses:
+        '200':
+          description: A list of location updates.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  details:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/LocationUpdate'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: createLocationUpdate
+      tags:
+      - Tracking
+      summary: Post a tracking update for a shipment
+      description: Records a real-time GPS location ping or status milestone against a shipment for in-transit visibility.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LocationUpdate'
+      responses:
+        '200':
+          description: The recorded location update.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LocationUpdate'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+components:
+  parameters:
+    Id:
+      name: id
+      in: path
+      required: true
+      description: The Turvo resource ID.
+      schema:
+        type: string
+  responses:
+    ValidationError:
+      description: The request payload failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid Bearer token or API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Error:
+      type: object
+      properties:
+        Status:
+          type: string
+          example: error
+        code:
+          type: integer
+        message:
+          type: string
+        details:
+          type: object
+          additionalProperties: true
+    LocationUpdate:
+      type: object
+      properties:
+        id:
+          type: string
+        shipmentId:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        latitude:
+          type: number
+        longitude:
+          type: number
+        milestone:
+          type: string
+          description: Status milestone such as arrived, departed, or in-transit.
+        notes:
+          type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'OAuth 2.0 Bearer access token obtained from POST /oauth/token. Passed as Authorization: Bearer YOUR_ACCESS_TOKEN.'
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: Per-tenant API key from the Turvo tenant API profile, sent on every request.

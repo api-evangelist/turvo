@@ -1,0 +1,127 @@
+openapi: 3.0.3
+info:
+  title: Turvo Public Accounts Authentication API
+  description: 'The Turvo Public API is a JSON REST interface to the Turvo collaborative transportation management system (TMS). It exposes the core logistics objects - shipments, orders, locations, accounts (customers), and carriers - plus real-time tracking via location updates and event-driven webhooks.
+
+    ACCESS MODEL: The API is self-service but tenant-gated. Credentials (Client ID, Client Secret, API Key) are provisioned from the API profile inside a customer''s Turvo tenant, and the live interactive reference sits behind a Turvo login at app.turvo.com/lobby/documentation. A sandbox tenant is available for testing.
+
+    MODELING NOTE: Because Turvo''s interactive reference is tenant-gated, the endpoint paths, parameters, and schemas in this document are HONESTLY MODELED from Turvo''s publicly described resource set and its documented OAuth 2.0 + x-api-key authentication pattern. They are a faithful structural model of the v1 API, not a verbatim copy of the live specification; confirm exact fields against your tenant''s own reference.'
+  version: '1.0'
+  contact:
+    name: Turvo
+    url: https://turvo.com
+servers:
+- url: https://publicapi.turvo.com/v1
+  description: Turvo Public API (production)
+- url: https://my-sandbox.turvo.com/v1
+  description: Sandbox tenant (per-tenant host; replace with your sandbox subdomain)
+security:
+- bearerAuth: []
+  apiKeyAuth: []
+tags:
+- name: Authentication
+  description: OAuth 2.0 token exchange for the Public API.
+paths:
+  /oauth/token:
+    post:
+      operationId: createToken
+      tags:
+      - Authentication
+      summary: Exchange credentials for an access token
+      description: 'Exchanges tenant API credentials for an OAuth 2.0 Bearer access token. Send the x-api-key header along with the grant. Turvo documents a password grant for tenant users; the returned access_token is then passed as Authorization: Bearer on subsequent calls.'
+      security: []
+      parameters:
+      - $ref: '#/components/parameters/ApiKeyHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenRequest'
+      responses:
+        '200':
+          description: A new OAuth 2.0 access token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    TokenResponse:
+      type: object
+      properties:
+        access_token:
+          type: string
+        token_type:
+          type: string
+          example: bearer
+        expires_in:
+          type: integer
+          example: 86400
+        refresh_token:
+          type: string
+        scope:
+          type: string
+    TokenRequest:
+      type: object
+      required:
+      - grant_type
+      - client_id
+      - client_secret
+      properties:
+        grant_type:
+          type: string
+          description: OAuth 2.0 grant type. Turvo documents a password grant for tenant users.
+          example: password
+        client_id:
+          type: string
+        client_secret:
+          type: string
+        username:
+          type: string
+          description: Tenant user for the password grant.
+        password:
+          type: string
+        scope:
+          type: string
+          example: read+trust+write
+    Error:
+      type: object
+      properties:
+        Status:
+          type: string
+          example: error
+        code:
+          type: integer
+        message:
+          type: string
+        details:
+          type: object
+          additionalProperties: true
+  parameters:
+    ApiKeyHeader:
+      name: x-api-key
+      in: header
+      required: true
+      description: Per-tenant API key from the Turvo tenant API profile.
+      schema:
+        type: string
+  responses:
+    Unauthorized:
+      description: Missing or invalid Bearer token or API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'OAuth 2.0 Bearer access token obtained from POST /oauth/token. Passed as Authorization: Bearer YOUR_ACCESS_TOKEN.'
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: Per-tenant API key from the Turvo tenant API profile, sent on every request.
