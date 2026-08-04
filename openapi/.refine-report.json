@@ -1,0 +1,26 @@
+{
+  "provider": "turvo",
+  "sources": [
+    "turvo-accounts-api-openapi.yml",
+    "turvo-authentication-api-openapi.yml",
+    "turvo-carriers-api-openapi.yml",
+    "turvo-locations-api-openapi.yml",
+    "turvo-orders-api-openapi.yml",
+    "turvo-shipments-api-openapi.yml",
+    "turvo-tracking-api-openapi.yml"
+  ],
+  "outputs": [
+    "turvo-accounts-api-openapi.yml",
+    "turvo-authentication-api-openapi.yml",
+    "turvo-carriers-api-openapi.yml",
+    "turvo-locations-api-openapi.yml",
+    "turvo-orders-api-openapi.yml",
+    "turvo-shipments-api-openapi.yml",
+    "turvo-tracking-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
