@@ -1,0 +1,66 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Turvo Public Accounts Tracking API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Tracking",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List tracking updates for a shipment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://publicapi.turvo.com/v1/shipments/:id/locationUpdates",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The Turvo resource ID."
+              }
+            ]
+          },
+          "docs": "Retrieves the recorded location updates and status milestones for a shipment."
+        },
+        {
+          "info": {
+            "name": "Post a tracking update for a shipment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://publicapi.turvo.com/v1/shipments/:id/locationUpdates",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The Turvo resource ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Records a real-time GPS location ping or status milestone against a shipment for in-transit visibility."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

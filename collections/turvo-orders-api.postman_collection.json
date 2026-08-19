@@ -1,0 +1,834 @@
+{
+  "item": [
+    {
+      "id": "afb55b32-3662-4c7b-9287-6f344ab93dec",
+      "name": "Orders",
+      "description": {
+        "content": "Customer demand records planned into shipments.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "133cb102-84e7-4e13-9e3f-ec31a7b86022",
+          "name": "List orders",
+          "request": {
+            "name": "List orders",
+            "description": {
+              "content": "Lists orders in the tenant, with pagination and filtering.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orders",
+                "list"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "0",
+                  "description": "Zero-based offset of the first record to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": "50",
+                  "description": "Maximum number of records to return per page."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f8bfdb51-4032-4965-af8d-c0def18a59a9",
+              "name": "A page of orders.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    "list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start",
+                      "value": "0"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "50"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"details\": [\n    {\n      \"id\": \"string\",\n      \"customId\": \"string\",\n      \"status\": {\n        \"code\": \"string\",\n        \"description\": \"string\"\n      },\n      \"customer\": {\n        \"id\": \"string\",\n        \"name\": \"string\"\n      },\n      \"shipFrom\": {\n        \"id\": \"string\",\n        \"name\": \"string\"\n      },\n      \"shipTo\": {\n        \"id\": \"string\",\n        \"name\": \"string\"\n      },\n      \"items\": [\n        {\n          \"name\": \"string\",\n          \"quantity\": 7025.578921512171,\n          \"weight\": 6095.1610718970005,\n          \"weightUnits\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"quantity\": 33.10885170677569,\n          \"weight\": 4130.693766988067,\n          \"weightUnits\": \"string\"\n        }\n      ]\n    },\n    {\n      \"id\": \"string\",\n      \"customId\": \"string\",\n      \"status\": {\n        \"code\": \"string\",\n        \"description\": \"string\"\n      },\n      \"customer\": {\n        \"id\": \"string\",\n        \"name\": \"string\"\n      },\n      \"shipFrom\": {\n        \"id\": \"string\",\n        \"name\": \"string\"\n      },\n      \"shipTo\": {\n        \"id\": \"string\",\n        \"name\": \"string\"\n      },\n      \"items\": [\n        {\n          \"name\": \"string\",\n          \"quantity\": 9347.573002241912,\n          \"weight\": 6462.930970936426,\n          \"weightUnits\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"quantity\": 3471.6977332946917,\n          \"weight\": 3488.773022388587,\n          \"weightUnits\": \"string\"\n        }\n      ]\n    }\n  ],\n  \"pagination\": {\n    \"start\": 2209,\n    \"pageSize\": 5691,\n    \"totalRecordsInPage\": 6168,\n    \"moreAvailable\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dbe64e09-7786-45d8-95bd-86643f6a1311",
+              "name": "Missing or invalid Bearer token or API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    "list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start",
+                      "value": "0"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "50"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Status\": \"error\",\n  \"code\": 9592,\n  \"message\": \"string\",\n  \"details\": {\n    \"key_0\": 8942,\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "893dce03-bdd0-4a00-89ab-bb9172b0a701",
+          "name": "Create an order",
+          "request": {
+            "name": "Create an order",
+            "description": {
+              "content": "Creates a new order with line items and ship-from / ship-to detail.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"<string>\",\n  \"customId\": \"<string>\",\n  \"status\": {\n    \"code\": \"<string>\",\n    \"description\": \"<string>\"\n  },\n  \"customer\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"shipFrom\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"shipTo\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"items\": [\n    {\n      \"name\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"weightUnits\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"weightUnits\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "29265571-81e5-4138-880a-27ffcb4fe345",
+              "name": "The created order.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"customId\": \"<string>\",\n  \"status\": {\n    \"code\": \"<string>\",\n    \"description\": \"<string>\"\n  },\n  \"customer\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"shipFrom\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"shipTo\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"items\": [\n    {\n      \"name\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"weightUnits\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"weightUnits\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"<string>\",\n  \"customId\": \"<string>\",\n  \"status\": {\n    \"code\": \"<string>\",\n    \"description\": \"<string>\"\n  },\n  \"customer\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"shipFrom\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"shipTo\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"items\": [\n    {\n      \"name\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"weightUnits\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"weightUnits\": \"<string>\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "607c0dc0-17d9-4d47-b17e-09e0752065c2",
+              "name": "Missing or invalid Bearer token or API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"customId\": \"<string>\",\n  \"status\": {\n    \"code\": \"<string>\",\n    \"description\": \"<string>\"\n  },\n  \"customer\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"shipFrom\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"shipTo\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"items\": [\n    {\n      \"name\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"weightUnits\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"weightUnits\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Status\": \"error\",\n  \"code\": 9592,\n  \"message\": \"string\",\n  \"details\": {\n    \"key_0\": 8942,\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0e49bc0f-7d5e-4a10-861d-c5f1be6994cb",
+              "name": "The request payload failed validation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"customId\": \"<string>\",\n  \"status\": {\n    \"code\": \"<string>\",\n    \"description\": \"<string>\"\n  },\n  \"customer\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"shipFrom\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"shipTo\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"items\": [\n    {\n      \"name\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"weightUnits\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"weightUnits\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Status\": \"error\",\n  \"code\": 9592,\n  \"message\": \"string\",\n  \"details\": {\n    \"key_0\": 8942,\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "487e5654-33fe-44e4-8385-a380a7a133f0",
+          "name": "Retrieve an order",
+          "request": {
+            "name": "Retrieve an order",
+            "description": {
+              "content": "Retrieves a single order by its Turvo ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orders",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The Turvo resource ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "aaaddbf2-7c0a-4df9-936c-1633f3c64c02",
+              "name": "The requested order.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The Turvo resource ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"<string>\",\n  \"customId\": \"<string>\",\n  \"status\": {\n    \"code\": \"<string>\",\n    \"description\": \"<string>\"\n  },\n  \"customer\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"shipFrom\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"shipTo\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"items\": [\n    {\n      \"name\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"weightUnits\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"weightUnits\": \"<string>\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7ff725eb-68fe-4f05-87da-8d9b02f58bd3",
+              "name": "Missing or invalid Bearer token or API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The Turvo resource ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Status\": \"error\",\n  \"code\": 9592,\n  \"message\": \"string\",\n  \"details\": {\n    \"key_0\": 8942,\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "90f61267-f7ca-476a-a72e-29aa47c866b4",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The Turvo resource ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Status\": \"error\",\n  \"code\": 9592,\n  \"message\": \"string\",\n  \"details\": {\n    \"key_0\": 8942,\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cc872010-c5ad-43ef-89f6-2871080c7663",
+          "name": "Update an order",
+          "request": {
+            "name": "Update an order",
+            "description": {
+              "content": "Updates an existing order.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orders",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The Turvo resource ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"<string>\",\n  \"customId\": \"<string>\",\n  \"status\": {\n    \"code\": \"<string>\",\n    \"description\": \"<string>\"\n  },\n  \"customer\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"shipFrom\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"shipTo\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"items\": [\n    {\n      \"name\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"weightUnits\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"weightUnits\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a4a7276c-5aa8-4e94-ad8f-01f1ab733b4c",
+              "name": "The updated order.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The Turvo resource ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"customId\": \"<string>\",\n  \"status\": {\n    \"code\": \"<string>\",\n    \"description\": \"<string>\"\n  },\n  \"customer\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"shipFrom\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"shipTo\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"items\": [\n    {\n      \"name\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"weightUnits\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"weightUnits\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"<string>\",\n  \"customId\": \"<string>\",\n  \"status\": {\n    \"code\": \"<string>\",\n    \"description\": \"<string>\"\n  },\n  \"customer\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"shipFrom\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"shipTo\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"items\": [\n    {\n      \"name\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"weightUnits\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"weightUnits\": \"<string>\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a67479a1-96ea-490c-b63d-ce26287d8434",
+              "name": "Missing or invalid Bearer token or API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The Turvo resource ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"customId\": \"<string>\",\n  \"status\": {\n    \"code\": \"<string>\",\n    \"description\": \"<string>\"\n  },\n  \"customer\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"shipFrom\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"shipTo\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"items\": [\n    {\n      \"name\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"weightUnits\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"weightUnits\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Status\": \"error\",\n  \"code\": 9592,\n  \"message\": \"string\",\n  \"details\": {\n    \"key_0\": 8942,\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "89426ab3-6c62-4821-b068-986d86b7153a",
+              "name": "The request payload failed validation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The Turvo resource ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"customId\": \"<string>\",\n  \"status\": {\n    \"code\": \"<string>\",\n    \"description\": \"<string>\"\n  },\n  \"customer\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"shipFrom\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"shipTo\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"items\": [\n    {\n      \"name\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"weightUnits\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"weightUnits\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Status\": \"error\",\n  \"code\": 9592,\n  \"message\": \"string\",\n  \"details\": {\n    \"key_0\": 8942,\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://publicapi.turvo.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "d9c5d562-663c-4de5-956e-602f88243f67",
+    "name": "Turvo Public Accounts Orders API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Turvo Public API is a JSON REST interface to the Turvo collaborative transportation management system (TMS). It exposes the core logistics objects - shipments, orders, locations, accounts (customers), and carriers - plus real-time tracking via location updates and event-driven webhooks.\nACCESS MODEL: The API is self-service but tenant-gated. Credentials (Client ID, Client Secret, API Key) are provisioned from the API profile inside a customer's Turvo tenant, and the live interactive reference sits behind a Turvo login at app.turvo.com/lobby/documentation. A sandbox tenant is available for testing.\nMODELING NOTE: Because Turvo's interactive reference is tenant-gated, the endpoint paths, parameters, and schemas in this document are HONESTLY MODELED from Turvo's publicly described resource set and its documented OAuth 2.0 + x-api-key authentication pattern. They are a faithful structural model of the v1 API, not a verbatim copy of the live specification; confirm exact fields against your tenant's own reference.\n\nContact Support:\n Name: Turvo",
+      "type": "text/plain"
+    }
+  }
+}

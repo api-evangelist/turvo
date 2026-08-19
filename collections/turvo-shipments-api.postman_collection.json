@@ -1,0 +1,1048 @@
+{
+  "item": [
+    {
+      "id": "8da6abee-af84-40e7-b9f5-9058645b7b1e",
+      "name": "Shipments",
+      "description": {
+        "content": "Freight loads - the core shipment object in Turvo.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "fbb39349-1349-4322-80c5-09485dd8dd54",
+          "name": "List shipments",
+          "request": {
+            "name": "List shipments",
+            "description": {
+              "content": "Lists shipments in the tenant, with pagination and filtering.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "shipments",
+                "list"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "0",
+                  "description": "Zero-based offset of the first record to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": "50",
+                  "description": "Maximum number of records to return per page."
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Filter by shipment lifecycle status code."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "503b350a-fa63-4c90-b031-44be02bd659d",
+              "name": "A page of shipments.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipments",
+                    "list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start",
+                      "value": "0"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "50"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"details\": [\n    {\n      \"id\": \"string\",\n      \"customId\": \"string\",\n      \"status\": {\n        \"code\": \"string\",\n        \"description\": \"string\"\n      },\n      \"startDate\": \"1967-02-22T08:42:21.337Z\",\n      \"endDate\": \"2002-06-05T10:37:01.401Z\",\n      \"lane\": {\n        \"start\": \"string\",\n        \"end\": \"string\"\n      },\n      \"globalRoute\": [\n        {\n          \"sequence\": 7753,\n          \"stopType\": \"string\",\n          \"location\": {\n            \"id\": \"string\",\n            \"name\": \"string\"\n          },\n          \"appointment\": {\n            \"date\": \"1972-04-22T19:02:05.453Z\",\n            \"timezone\": \"string\"\n          }\n        },\n        {\n          \"sequence\": 2341,\n          \"stopType\": \"string\",\n          \"location\": {\n            \"id\": \"string\",\n            \"name\": \"string\"\n          },\n          \"appointment\": {\n            \"date\": \"1970-04-06T05:14:24.736Z\",\n            \"timezone\": \"string\"\n          }\n        }\n      ],\n      \"items\": [\n        {\n          \"name\": \"string\",\n          \"quantity\": 7265.3644609604935,\n          \"weight\": 9051.49054396876,\n          \"weightUnits\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"quantity\": 8711.732156055563,\n          \"weight\": 9903.253880087475,\n          \"weightUnits\": \"string\"\n        }\n      ],\n      \"carrier\": {\n        \"id\": \"string\",\n        \"name\": \"string\"\n      },\n      \"costs\": {\n        \"key_0\": 1882.0322674868185\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"customId\": \"string\",\n      \"status\": {\n        \"code\": \"string\",\n        \"description\": \"string\"\n      },\n      \"startDate\": \"1987-03-17T18:32:52.637Z\",\n      \"endDate\": \"2004-11-27T07:38:58.739Z\",\n      \"lane\": {\n        \"start\": \"string\",\n        \"end\": \"string\"\n      },\n      \"globalRoute\": [\n        {\n          \"sequence\": 1899,\n          \"stopType\": \"string\",\n          \"location\": {\n            \"id\": \"string\",\n            \"name\": \"string\"\n          },\n          \"appointment\": {\n            \"date\": \"2025-08-09T11:38:35.146Z\",\n            \"timezone\": \"string\"\n          }\n        },\n        {\n          \"sequence\": 5821,\n          \"stopType\": \"string\",\n          \"location\": {\n            \"id\": \"string\",\n            \"name\": \"string\"\n          },\n          \"appointment\": {\n            \"date\": \"1963-02-14T03:32:33.421Z\",\n            \"timezone\": \"string\"\n          }\n        }\n      ],\n      \"items\": [\n        {\n          \"name\": \"string\",\n          \"quantity\": 2011.0645254285387,\n          \"weight\": 9187.280742252346,\n          \"weightUnits\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"quantity\": 3473.270619059088,\n          \"weight\": 7782.976349607372,\n          \"weightUnits\": \"string\"\n        }\n      ],\n      \"carrier\": {\n        \"id\": \"string\",\n        \"name\": \"string\"\n      },\n      \"costs\": {\n        \"key_0\": 7251\n      }\n    }\n  ],\n  \"pagination\": {\n    \"start\": 855,\n    \"pageSize\": 46,\n    \"totalRecordsInPage\": 1422,\n    \"moreAvailable\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0b24ae85-ad29-4721-901f-c5dcff62e058",
+              "name": "Missing or invalid Bearer token or API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipments",
+                    "list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start",
+                      "value": "0"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "50"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Status\": \"error\",\n  \"code\": 9946,\n  \"message\": \"string\",\n  \"details\": {\n    \"key_0\": 4386.419591239407,\n    \"key_1\": 754,\n    \"key_2\": 3082\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f05cdc2f-e236-4873-904b-08bfbbac1428",
+          "name": "Create a shipment",
+          "request": {
+            "name": "Create a shipment",
+            "description": {
+              "content": "Creates a new shipment (load) with stops, items, and costs.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "shipments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"<string>\",\n  \"customId\": \"<string>\",\n  \"status\": {\n    \"code\": \"<string>\",\n    \"description\": \"<string>\"\n  },\n  \"startDate\": \"<dateTime>\",\n  \"endDate\": \"<dateTime>\",\n  \"lane\": {\n    \"start\": \"<string>\",\n    \"end\": \"<string>\"\n  },\n  \"globalRoute\": [\n    {\n      \"sequence\": \"<integer>\",\n      \"stopType\": \"<string>\",\n      \"location\": {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      },\n      \"appointment\": {\n        \"date\": \"<dateTime>\",\n        \"timezone\": \"<string>\"\n      }\n    },\n    {\n      \"sequence\": \"<integer>\",\n      \"stopType\": \"<string>\",\n      \"location\": {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      },\n      \"appointment\": {\n        \"date\": \"<dateTime>\",\n        \"timezone\": \"<string>\"\n      }\n    }\n  ],\n  \"items\": [\n    {\n      \"name\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"weightUnits\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"weightUnits\": \"<string>\"\n    }\n  ],\n  \"carrier\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"costs\": {\n    \"key_0\": false,\n    \"key_1\": 3216.018405563356,\n    \"key_2\": false\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4ada369e-f491-475d-8c7c-88e191e9bff5",
+              "name": "The created shipment.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"customId\": \"<string>\",\n  \"status\": {\n    \"code\": \"<string>\",\n    \"description\": \"<string>\"\n  },\n  \"startDate\": \"<dateTime>\",\n  \"endDate\": \"<dateTime>\",\n  \"lane\": {\n    \"start\": \"<string>\",\n    \"end\": \"<string>\"\n  },\n  \"globalRoute\": [\n    {\n      \"sequence\": \"<integer>\",\n      \"stopType\": \"<string>\",\n      \"location\": {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      },\n      \"appointment\": {\n        \"date\": \"<dateTime>\",\n        \"timezone\": \"<string>\"\n      }\n    },\n    {\n      \"sequence\": \"<integer>\",\n      \"stopType\": \"<string>\",\n      \"location\": {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      },\n      \"appointment\": {\n        \"date\": \"<dateTime>\",\n        \"timezone\": \"<string>\"\n      }\n    }\n  ],\n  \"items\": [\n    {\n      \"name\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"weightUnits\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"weightUnits\": \"<string>\"\n    }\n  ],\n  \"carrier\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"costs\": {\n    \"key_0\": 7608.2805286304965\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"<string>\",\n  \"customId\": \"<string>\",\n  \"status\": {\n    \"code\": \"<string>\",\n    \"description\": \"<string>\"\n  },\n  \"startDate\": \"<dateTime>\",\n  \"endDate\": \"<dateTime>\",\n  \"lane\": {\n    \"start\": \"<string>\",\n    \"end\": \"<string>\"\n  },\n  \"globalRoute\": [\n    {\n      \"sequence\": \"<integer>\",\n      \"stopType\": \"<string>\",\n      \"location\": {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      },\n      \"appointment\": {\n        \"date\": \"<dateTime>\",\n        \"timezone\": \"<string>\"\n      }\n    },\n    {\n      \"sequence\": \"<integer>\",\n      \"stopType\": \"<string>\",\n      \"location\": {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      },\n      \"appointment\": {\n        \"date\": \"<dateTime>\",\n        \"timezone\": \"<string>\"\n      }\n    }\n  ],\n  \"items\": [\n    {\n      \"name\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"weightUnits\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"weightUnits\": \"<string>\"\n    }\n  ],\n  \"carrier\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"costs\": {\n    \"key_0\": 7608.2805286304965\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "93394bf9-f606-4e1e-b00b-fa58cf023f78",
+              "name": "Missing or invalid Bearer token or API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"customId\": \"<string>\",\n  \"status\": {\n    \"code\": \"<string>\",\n    \"description\": \"<string>\"\n  },\n  \"startDate\": \"<dateTime>\",\n  \"endDate\": \"<dateTime>\",\n  \"lane\": {\n    \"start\": \"<string>\",\n    \"end\": \"<string>\"\n  },\n  \"globalRoute\": [\n    {\n      \"sequence\": \"<integer>\",\n      \"stopType\": \"<string>\",\n      \"location\": {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      },\n      \"appointment\": {\n        \"date\": \"<dateTime>\",\n        \"timezone\": \"<string>\"\n      }\n    },\n    {\n      \"sequence\": \"<integer>\",\n      \"stopType\": \"<string>\",\n      \"location\": {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      },\n      \"appointment\": {\n        \"date\": \"<dateTime>\",\n        \"timezone\": \"<string>\"\n      }\n    }\n  ],\n  \"items\": [\n    {\n      \"name\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"weightUnits\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"weightUnits\": \"<string>\"\n    }\n  ],\n  \"carrier\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"costs\": {\n    \"key_0\": 7608.2805286304965\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Status\": \"error\",\n  \"code\": 9946,\n  \"message\": \"string\",\n  \"details\": {\n    \"key_0\": 4386.419591239407,\n    \"key_1\": 754,\n    \"key_2\": 3082\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1a503883-1991-4cc0-bef7-58992f28ef9c",
+              "name": "The request payload failed validation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"customId\": \"<string>\",\n  \"status\": {\n    \"code\": \"<string>\",\n    \"description\": \"<string>\"\n  },\n  \"startDate\": \"<dateTime>\",\n  \"endDate\": \"<dateTime>\",\n  \"lane\": {\n    \"start\": \"<string>\",\n    \"end\": \"<string>\"\n  },\n  \"globalRoute\": [\n    {\n      \"sequence\": \"<integer>\",\n      \"stopType\": \"<string>\",\n      \"location\": {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      },\n      \"appointment\": {\n        \"date\": \"<dateTime>\",\n        \"timezone\": \"<string>\"\n      }\n    },\n    {\n      \"sequence\": \"<integer>\",\n      \"stopType\": \"<string>\",\n      \"location\": {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      },\n      \"appointment\": {\n        \"date\": \"<dateTime>\",\n        \"timezone\": \"<string>\"\n      }\n    }\n  ],\n  \"items\": [\n    {\n      \"name\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"weightUnits\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"weightUnits\": \"<string>\"\n    }\n  ],\n  \"carrier\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"costs\": {\n    \"key_0\": 7608.2805286304965\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Status\": \"error\",\n  \"code\": 9946,\n  \"message\": \"string\",\n  \"details\": {\n    \"key_0\": 4386.419591239407,\n    \"key_1\": 754,\n    \"key_2\": 3082\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a993a9f2-7868-42f5-ad98-2b3f9b82beed",
+          "name": "Retrieve a shipment",
+          "request": {
+            "name": "Retrieve a shipment",
+            "description": {
+              "content": "Retrieves a single shipment by its Turvo ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "shipments",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The Turvo resource ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bdb1dc63-4206-423a-a91d-0e923d512fcd",
+              "name": "The requested shipment.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipments",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The Turvo resource ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"<string>\",\n  \"customId\": \"<string>\",\n  \"status\": {\n    \"code\": \"<string>\",\n    \"description\": \"<string>\"\n  },\n  \"startDate\": \"<dateTime>\",\n  \"endDate\": \"<dateTime>\",\n  \"lane\": {\n    \"start\": \"<string>\",\n    \"end\": \"<string>\"\n  },\n  \"globalRoute\": [\n    {\n      \"sequence\": \"<integer>\",\n      \"stopType\": \"<string>\",\n      \"location\": {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      },\n      \"appointment\": {\n        \"date\": \"<dateTime>\",\n        \"timezone\": \"<string>\"\n      }\n    },\n    {\n      \"sequence\": \"<integer>\",\n      \"stopType\": \"<string>\",\n      \"location\": {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      },\n      \"appointment\": {\n        \"date\": \"<dateTime>\",\n        \"timezone\": \"<string>\"\n      }\n    }\n  ],\n  \"items\": [\n    {\n      \"name\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"weightUnits\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"weightUnits\": \"<string>\"\n    }\n  ],\n  \"carrier\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"costs\": {\n    \"key_0\": 7608.2805286304965\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fd0deab7-4628-4da3-8537-24fa75f2b22e",
+              "name": "Missing or invalid Bearer token or API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipments",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The Turvo resource ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Status\": \"error\",\n  \"code\": 9946,\n  \"message\": \"string\",\n  \"details\": {\n    \"key_0\": 4386.419591239407,\n    \"key_1\": 754,\n    \"key_2\": 3082\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cf3182f8-d761-4280-891f-0c9f818da092",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipments",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The Turvo resource ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Status\": \"error\",\n  \"code\": 9946,\n  \"message\": \"string\",\n  \"details\": {\n    \"key_0\": 4386.419591239407,\n    \"key_1\": 754,\n    \"key_2\": 3082\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1bdee258-9b41-46ff-af94-4bc4ddaca1eb",
+          "name": "Update a shipment",
+          "request": {
+            "name": "Update a shipment",
+            "description": {
+              "content": "Updates an existing shipment - stops, status, carrier, or costs.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "shipments",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The Turvo resource ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"<string>\",\n  \"customId\": \"<string>\",\n  \"status\": {\n    \"code\": \"<string>\",\n    \"description\": \"<string>\"\n  },\n  \"startDate\": \"<dateTime>\",\n  \"endDate\": \"<dateTime>\",\n  \"lane\": {\n    \"start\": \"<string>\",\n    \"end\": \"<string>\"\n  },\n  \"globalRoute\": [\n    {\n      \"sequence\": \"<integer>\",\n      \"stopType\": \"<string>\",\n      \"location\": {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      },\n      \"appointment\": {\n        \"date\": \"<dateTime>\",\n        \"timezone\": \"<string>\"\n      }\n    },\n    {\n      \"sequence\": \"<integer>\",\n      \"stopType\": \"<string>\",\n      \"location\": {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      },\n      \"appointment\": {\n        \"date\": \"<dateTime>\",\n        \"timezone\": \"<string>\"\n      }\n    }\n  ],\n  \"items\": [\n    {\n      \"name\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"weightUnits\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"weightUnits\": \"<string>\"\n    }\n  ],\n  \"carrier\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"costs\": {\n    \"key_0\": false,\n    \"key_1\": 3216.018405563356,\n    \"key_2\": false\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "15ef376f-d2f8-4535-b8a1-9db416c996a7",
+              "name": "The updated shipment.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipments",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The Turvo resource ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"customId\": \"<string>\",\n  \"status\": {\n    \"code\": \"<string>\",\n    \"description\": \"<string>\"\n  },\n  \"startDate\": \"<dateTime>\",\n  \"endDate\": \"<dateTime>\",\n  \"lane\": {\n    \"start\": \"<string>\",\n    \"end\": \"<string>\"\n  },\n  \"globalRoute\": [\n    {\n      \"sequence\": \"<integer>\",\n      \"stopType\": \"<string>\",\n      \"location\": {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      },\n      \"appointment\": {\n        \"date\": \"<dateTime>\",\n        \"timezone\": \"<string>\"\n      }\n    },\n    {\n      \"sequence\": \"<integer>\",\n      \"stopType\": \"<string>\",\n      \"location\": {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      },\n      \"appointment\": {\n        \"date\": \"<dateTime>\",\n        \"timezone\": \"<string>\"\n      }\n    }\n  ],\n  \"items\": [\n    {\n      \"name\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"weightUnits\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"weightUnits\": \"<string>\"\n    }\n  ],\n  \"carrier\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"costs\": {\n    \"key_0\": 7608.2805286304965\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"<string>\",\n  \"customId\": \"<string>\",\n  \"status\": {\n    \"code\": \"<string>\",\n    \"description\": \"<string>\"\n  },\n  \"startDate\": \"<dateTime>\",\n  \"endDate\": \"<dateTime>\",\n  \"lane\": {\n    \"start\": \"<string>\",\n    \"end\": \"<string>\"\n  },\n  \"globalRoute\": [\n    {\n      \"sequence\": \"<integer>\",\n      \"stopType\": \"<string>\",\n      \"location\": {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      },\n      \"appointment\": {\n        \"date\": \"<dateTime>\",\n        \"timezone\": \"<string>\"\n      }\n    },\n    {\n      \"sequence\": \"<integer>\",\n      \"stopType\": \"<string>\",\n      \"location\": {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      },\n      \"appointment\": {\n        \"date\": \"<dateTime>\",\n        \"timezone\": \"<string>\"\n      }\n    }\n  ],\n  \"items\": [\n    {\n      \"name\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"weightUnits\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"weightUnits\": \"<string>\"\n    }\n  ],\n  \"carrier\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"costs\": {\n    \"key_0\": 7608.2805286304965\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1c6614a9-f9a5-466e-8838-17a89fdc15a3",
+              "name": "Missing or invalid Bearer token or API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipments",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The Turvo resource ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"customId\": \"<string>\",\n  \"status\": {\n    \"code\": \"<string>\",\n    \"description\": \"<string>\"\n  },\n  \"startDate\": \"<dateTime>\",\n  \"endDate\": \"<dateTime>\",\n  \"lane\": {\n    \"start\": \"<string>\",\n    \"end\": \"<string>\"\n  },\n  \"globalRoute\": [\n    {\n      \"sequence\": \"<integer>\",\n      \"stopType\": \"<string>\",\n      \"location\": {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      },\n      \"appointment\": {\n        \"date\": \"<dateTime>\",\n        \"timezone\": \"<string>\"\n      }\n    },\n    {\n      \"sequence\": \"<integer>\",\n      \"stopType\": \"<string>\",\n      \"location\": {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      },\n      \"appointment\": {\n        \"date\": \"<dateTime>\",\n        \"timezone\": \"<string>\"\n      }\n    }\n  ],\n  \"items\": [\n    {\n      \"name\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"weightUnits\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"weightUnits\": \"<string>\"\n    }\n  ],\n  \"carrier\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"costs\": {\n    \"key_0\": 7608.2805286304965\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Status\": \"error\",\n  \"code\": 9946,\n  \"message\": \"string\",\n  \"details\": {\n    \"key_0\": 4386.419591239407,\n    \"key_1\": 754,\n    \"key_2\": 3082\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fbed5077-f0d9-42cc-afdc-158daa32058e",
+              "name": "The request payload failed validation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipments",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The Turvo resource ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"customId\": \"<string>\",\n  \"status\": {\n    \"code\": \"<string>\",\n    \"description\": \"<string>\"\n  },\n  \"startDate\": \"<dateTime>\",\n  \"endDate\": \"<dateTime>\",\n  \"lane\": {\n    \"start\": \"<string>\",\n    \"end\": \"<string>\"\n  },\n  \"globalRoute\": [\n    {\n      \"sequence\": \"<integer>\",\n      \"stopType\": \"<string>\",\n      \"location\": {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      },\n      \"appointment\": {\n        \"date\": \"<dateTime>\",\n        \"timezone\": \"<string>\"\n      }\n    },\n    {\n      \"sequence\": \"<integer>\",\n      \"stopType\": \"<string>\",\n      \"location\": {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      },\n      \"appointment\": {\n        \"date\": \"<dateTime>\",\n        \"timezone\": \"<string>\"\n      }\n    }\n  ],\n  \"items\": [\n    {\n      \"name\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"weightUnits\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"weightUnits\": \"<string>\"\n    }\n  ],\n  \"carrier\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"costs\": {\n    \"key_0\": 7608.2805286304965\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Status\": \"error\",\n  \"code\": 9946,\n  \"message\": \"string\",\n  \"details\": {\n    \"key_0\": 4386.419591239407,\n    \"key_1\": 754,\n    \"key_2\": 3082\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a732c8d8-8da2-4093-9bb9-a510e1e97c62",
+          "name": "Cancel a shipment",
+          "request": {
+            "name": "Cancel a shipment",
+            "description": {
+              "content": "Cancels (soft-deletes) a shipment.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "shipments",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The Turvo resource ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "27dc7846-57eb-4d69-897f-0ff755d2b9a1",
+              "name": "Cancellation result.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipments",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The Turvo resource ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"deleted\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1745eb6e-dbd8-4510-86ce-178fc974b31d",
+              "name": "Missing or invalid Bearer token or API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipments",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The Turvo resource ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Status\": \"error\",\n  \"code\": 9946,\n  \"message\": \"string\",\n  \"details\": {\n    \"key_0\": 4386.419591239407,\n    \"key_1\": 754,\n    \"key_2\": 3082\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ef094c1a-a3d4-46cd-a6aa-ac660104611a",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipments",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The Turvo resource ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Status\": \"error\",\n  \"code\": 9946,\n  \"message\": \"string\",\n  \"details\": {\n    \"key_0\": 4386.419591239407,\n    \"key_1\": 754,\n    \"key_2\": 3082\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://publicapi.turvo.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "0c70d4c8-3b00-40d7-b49c-ad5bc3469f46",
+    "name": "Turvo Public Accounts Shipments API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Turvo Public API is a JSON REST interface to the Turvo collaborative transportation management system (TMS). It exposes the core logistics objects - shipments, orders, locations, accounts (customers), and carriers - plus real-time tracking via location updates and event-driven webhooks.\nACCESS MODEL: The API is self-service but tenant-gated. Credentials (Client ID, Client Secret, API Key) are provisioned from the API profile inside a customer's Turvo tenant, and the live interactive reference sits behind a Turvo login at app.turvo.com/lobby/documentation. A sandbox tenant is available for testing.\nMODELING NOTE: Because Turvo's interactive reference is tenant-gated, the endpoint paths, parameters, and schemas in this document are HONESTLY MODELED from Turvo's publicly described resource set and its documented OAuth 2.0 + x-api-key authentication pattern. They are a faithful structural model of the v1 API, not a verbatim copy of the live specification; confirm exact fields against your tenant's own reference.\n\nContact Support:\n Name: Turvo",
+      "type": "text/plain"
+    }
+  }
+}
