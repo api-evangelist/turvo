@@ -43,6 +43,8 @@ apis:
   humanURL: https://help.turvo.com/hc/en-us/sections/12970447299987-API-Documentation
   baseURL: https://publicapi.turvo.com/v1
   tags:
+  - Account
+  tags_raw:
   - Accounts
   properties:
   - type: OpenAPI
@@ -119,6 +121,8 @@ apis:
   humanURL: https://help.turvo.com/hc/en-us/sections/12970447299987-API-Documentation
   baseURL: https://publicapi.turvo.com/v1
   tags:
+  - Order
+  tags_raw:
   - Orders
   properties:
   - type: OpenAPI
