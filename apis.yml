@@ -11,6 +11,18 @@ description: Turvo is a collaborative cloud transportation management system (TM
   and the interactive reference are provisioned per tenant from the API profile
   inside the Turvo application, so the surface is self-serve for Turvo customers
   rather than openly public.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: enterprise
   onboarding: self-serve
