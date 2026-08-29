@@ -187,6 +187,9 @@ apis:
   - type: OpenCollection
     url: collections/turvo.opencollection.json
 common:
+- type: CapabilityMap
+  url: capabilities/turvo-capability-edges.yml
+  name: Turvo Business Capability Map
 - type: AgenticAccess
   url: agentic-access/turvo-agentic-access.yml
 - type: DomainSecurity
