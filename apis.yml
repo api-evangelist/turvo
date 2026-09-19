@@ -45,6 +45,14 @@ tags:
 - Supply Chain
 - Freight
 - Shipments
+- Carrier
+tags_raw:
+- Logistics
+- Transportation Management System
+- TMS
+- Supply Chain
+- Freight
+- Shipments
 - Carriers
 created: '2026-07-05'
 modified: '2026-07-05'
@@ -96,6 +104,8 @@ apis:
   humanURL: https://help.turvo.com/hc/en-us/sections/12970447299987-API-Documentation
   baseURL: https://publicapi.turvo.com/v1
   tags:
+  - Carrier
+  tags_raw:
   - Carriers
   properties:
   - type: OpenAPI
@@ -115,6 +125,8 @@ apis:
   humanURL: https://help.turvo.com/hc/en-us/sections/12970447299987-API-Documentation
   baseURL: https://publicapi.turvo.com/v1
   tags:
+  - Location
+  tags_raw:
   - Locations
   properties:
   - type: OpenAPI
