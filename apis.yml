@@ -200,6 +200,8 @@ apis:
   - type: OpenCollection
     url: collections/turvo.opencollection.json
 common:
+- type: Pricing
+  url: https://turvo.com/pricing/
 - type: CapabilityMap
   url: capabilities/turvo-capability-edges.yml
   name: Turvo Business Capability Map
