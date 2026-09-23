@@ -1,11 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Turvo Public Accounts Shipments API
-  description: 'The Turvo Public API is a JSON REST interface to the Turvo collaborative transportation management system (TMS). It exposes the core logistics objects - shipments, orders, locations, accounts (customers), and carriers - plus real-time tracking via location updates and event-driven webhooks.
-
-    ACCESS MODEL: The API is self-service but tenant-gated. Credentials (Client ID, Client Secret, API Key) are provisioned from the API profile inside a customer''s Turvo tenant, and the live interactive reference sits behind a Turvo login at app.turvo.com/lobby/documentation. A sandbox tenant is available for testing.
-
-    MODELING NOTE: Because Turvo''s interactive reference is tenant-gated, the endpoint paths, parameters, and schemas in this document are HONESTLY MODELED from Turvo''s publicly described resource set and its documented OAuth 2.0 + x-api-key authentication pattern. They are a faithful structural model of the v1 API, not a verbatim copy of the live specification; confirm exact fields against your tenant''s own reference.'
+  title: Turvo Public Shipments API
+  description: The Turvo Public API is a JSON REST interface to the Turvo collaborative transportation management system (TMS).
   version: '1.0'
   contact:
     name: Turvo
@@ -127,38 +123,25 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  parameters:
-    PageSize:
-      name: pageSize
-      in: query
-      required: false
-      description: Maximum number of records to return per page.
-      schema:
-        type: integer
-        default: 50
-    Id:
-      name: id
-      in: path
-      required: true
-      description: The Turvo resource ID.
-      schema:
-        type: string
-    Start:
-      name: start
-      in: query
-      required: false
-      description: Zero-based offset of the first record to return.
-      schema:
-        type: integer
-        default: 0
-    StatusFilter:
-      name: status
-      in: query
-      required: false
-      description: Filter by shipment lifecycle status code.
-      schema:
-        type: string
   schemas:
+    LocationRef:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+    ShipmentItem:
+      type: object
+      properties:
+        name:
+          type: string
+        quantity:
+          type: number
+        weight:
+          type: number
+        weightUnits:
+          type: string
     Shipment:
       type: object
       properties:
@@ -206,6 +189,26 @@ components:
         costs:
           type: object
           additionalProperties: true
+    DeleteResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        deleted:
+          type: boolean
+    Error:
+      type: object
+      properties:
+        Status:
+          type: string
+          example: error
+        code:
+          type: integer
+        message:
+          type: string
+        details:
+          type: object
+          additionalProperties: true
     Stop:
       type: object
       properties:
@@ -244,45 +247,13 @@ components:
           type: integer
         moreAvailable:
           type: boolean
-    LocationRef:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-    DeleteResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        deleted:
-          type: boolean
-    Error:
-      type: object
-      properties:
-        Status:
-          type: string
-          example: error
-        code:
-          type: integer
-        message:
-          type: string
-        details:
-          type: object
-          additionalProperties: true
-    ShipmentItem:
-      type: object
-      properties:
-        name:
-          type: string
-        quantity:
-          type: number
-        weight:
-          type: number
-        weightUnits:
-          type: string
   responses:
+    ValidationError:
+      description: The request payload failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
     NotFound:
       description: The requested resource was not found.
       content:
@@ -295,12 +266,37 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    ValidationError:
-      description: The request payload failed validation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+  parameters:
+    Start:
+      name: start
+      in: query
+      required: false
+      description: Zero-based offset of the first record to return.
+      schema:
+        type: integer
+        default: 0
+    Id:
+      name: id
+      in: path
+      required: true
+      description: The Turvo resource ID.
+      schema:
+        type: string
+    StatusFilter:
+      name: status
+      in: query
+      required: false
+      description: Filter by shipment lifecycle status code.
+      schema:
+        type: string
+    PageSize:
+      name: pageSize
+      in: query
+      required: false
+      description: Maximum number of records to return per page.
+      schema:
+        type: integer
+        default: 50
   securitySchemes:
     bearerAuth:
       type: http

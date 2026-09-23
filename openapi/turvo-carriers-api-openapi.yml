@@ -1,11 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Turvo Public Accounts Carriers API
-  description: 'The Turvo Public API is a JSON REST interface to the Turvo collaborative transportation management system (TMS). It exposes the core logistics objects - shipments, orders, locations, accounts (customers), and carriers - plus real-time tracking via location updates and event-driven webhooks.
-
-    ACCESS MODEL: The API is self-service but tenant-gated. Credentials (Client ID, Client Secret, API Key) are provisioned from the API profile inside a customer''s Turvo tenant, and the live interactive reference sits behind a Turvo login at app.turvo.com/lobby/documentation. A sandbox tenant is available for testing.
-
-    MODELING NOTE: Because Turvo''s interactive reference is tenant-gated, the endpoint paths, parameters, and schemas in this document are HONESTLY MODELED from Turvo''s publicly described resource set and its documented OAuth 2.0 + x-api-key authentication pattern. They are a faithful structural model of the v1 API, not a verbatim copy of the live specification; confirm exact fields against your tenant''s own reference.'
+  title: Turvo Public Carriers API
+  description: The Turvo Public API is a JSON REST interface to the Turvo collaborative transportation management system (TMS).
   version: '1.0'
   contact:
     name: Turvo
@@ -110,15 +106,15 @@ paths:
           $ref: '#/components/responses/ValidationError'
 components:
   schemas:
-    CarrierList:
+    Contact:
       type: object
       properties:
-        details:
-          type: array
-          items:
-            $ref: '#/components/schemas/Carrier'
-        pagination:
-          $ref: '#/components/schemas/Pagination'
+        name:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
     Carrier:
       type: object
       properties:
@@ -143,17 +139,15 @@ components:
         compliance:
           type: object
           additionalProperties: true
-    Pagination:
+    CarrierList:
       type: object
       properties:
-        start:
-          type: integer
-        pageSize:
-          type: integer
-        totalRecordsInPage:
-          type: integer
-        moreAvailable:
-          type: boolean
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/Carrier'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
     Error:
       type: object
       properties:
@@ -167,40 +161,24 @@ components:
         details:
           type: object
           additionalProperties: true
-    Contact:
+    Pagination:
       type: object
       properties:
-        name:
-          type: string
-        email:
-          type: string
-        phone:
-          type: string
-  parameters:
-    PageSize:
-      name: pageSize
-      in: query
-      required: false
-      description: Maximum number of records to return per page.
-      schema:
-        type: integer
-        default: 50
-    Id:
-      name: id
-      in: path
-      required: true
-      description: The Turvo resource ID.
-      schema:
-        type: string
-    Start:
-      name: start
-      in: query
-      required: false
-      description: Zero-based offset of the first record to return.
-      schema:
-        type: integer
-        default: 0
+        start:
+          type: integer
+        pageSize:
+          type: integer
+        totalRecordsInPage:
+          type: integer
+        moreAvailable:
+          type: boolean
   responses:
+    ValidationError:
+      description: The request payload failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
     NotFound:
       description: The requested resource was not found.
       content:
@@ -213,12 +191,30 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    ValidationError:
-      description: The request payload failed validation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+  parameters:
+    Start:
+      name: start
+      in: query
+      required: false
+      description: Zero-based offset of the first record to return.
+      schema:
+        type: integer
+        default: 0
+    Id:
+      name: id
+      in: path
+      required: true
+      description: The Turvo resource ID.
+      schema:
+        type: string
+    PageSize:
+      name: pageSize
+      in: query
+      required: false
+      description: Maximum number of records to return per page.
+      schema:
+        type: integer
+        default: 50
   securitySchemes:
     bearerAuth:
       type: http

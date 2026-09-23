@@ -1,11 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Turvo Public Accounts Authentication API
-  description: 'The Turvo Public API is a JSON REST interface to the Turvo collaborative transportation management system (TMS). It exposes the core logistics objects - shipments, orders, locations, accounts (customers), and carriers - plus real-time tracking via location updates and event-driven webhooks.
-
-    ACCESS MODEL: The API is self-service but tenant-gated. Credentials (Client ID, Client Secret, API Key) are provisioned from the API profile inside a customer''s Turvo tenant, and the live interactive reference sits behind a Turvo login at app.turvo.com/lobby/documentation. A sandbox tenant is available for testing.
-
-    MODELING NOTE: Because Turvo''s interactive reference is tenant-gated, the endpoint paths, parameters, and schemas in this document are HONESTLY MODELED from Turvo''s publicly described resource set and its documented OAuth 2.0 + x-api-key authentication pattern. They are a faithful structural model of the v1 API, not a verbatim copy of the live specification; confirm exact fields against your tenant''s own reference.'
+  title: Turvo Public Authentication API
+  description: The Turvo Public API is a JSON REST interface to the Turvo collaborative transportation management system (TMS).
   version: '1.0'
   contact:
     name: Turvo
@@ -49,21 +45,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    TokenResponse:
-      type: object
-      properties:
-        access_token:
-          type: string
-        token_type:
-          type: string
-          example: bearer
-        expires_in:
-          type: integer
-          example: 86400
-        refresh_token:
-          type: string
-        scope:
-          type: string
     TokenRequest:
       type: object
       required:
@@ -100,6 +81,28 @@ components:
         details:
           type: object
           additionalProperties: true
+    TokenResponse:
+      type: object
+      properties:
+        access_token:
+          type: string
+        token_type:
+          type: string
+          example: bearer
+        expires_in:
+          type: integer
+          example: 86400
+        refresh_token:
+          type: string
+        scope:
+          type: string
+  responses:
+    Unauthorized:
+      description: Missing or invalid Bearer token or API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
     ApiKeyHeader:
       name: x-api-key
@@ -108,13 +111,6 @@ components:
       description: Per-tenant API key from the Turvo tenant API profile.
       schema:
         type: string
-  responses:
-    Unauthorized:
-      description: Missing or invalid Bearer token or API key.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

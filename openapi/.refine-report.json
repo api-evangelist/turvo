@@ -1,13 +1,7 @@
 {
   "provider": "turvo",
   "sources": [
-    "turvo-accounts-api-openapi.yml",
-    "turvo-authentication-api-openapi.yml",
-    "turvo-carriers-api-openapi.yml",
-    "turvo-locations-api-openapi.yml",
-    "turvo-orders-api-openapi.yml",
-    "turvo-shipments-api-openapi.yml",
-    "turvo-tracking-api-openapi.yml"
+    "_original/turvo-openapi.yml"
   ],
   "outputs": [
     "turvo-accounts-api-openapi.yml",
@@ -21,6 +15,18 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "turvo-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "turvo-accounts-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "turvo-authentication-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "turvo-carriers-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "turvo-locations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "turvo-orders-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "turvo-shipments-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "turvo-tracking-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
