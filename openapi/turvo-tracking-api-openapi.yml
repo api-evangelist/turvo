@@ -68,14 +68,14 @@ paths:
           $ref: '#/components/responses/ValidationError'
 components:
   responses:
-    ValidationError:
-      description: The request payload failed validation.
+    Unauthorized:
+      description: Missing or invalid Bearer token or API key.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid Bearer token or API key.
+    ValidationError:
+      description: The request payload failed validation.
       content:
         application/json:
           schema:
@@ -86,6 +86,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+  parameters:
+    Id:
+      name: id
+      in: path
+      required: true
+      description: The Turvo resource ID.
+      schema:
+        type: string
   schemas:
     LocationUpdate:
       type: object
@@ -119,14 +127,6 @@ components:
         details:
           type: object
           additionalProperties: true
-  parameters:
-    Id:
-      name: id
-      in: path
-      required: true
-      description: The Turvo resource ID.
-      schema:
-        type: string
   securitySchemes:
     bearerAuth:
       type: http

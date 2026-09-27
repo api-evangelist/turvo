@@ -106,24 +106,6 @@ paths:
           $ref: '#/components/responses/ValidationError'
 components:
   schemas:
-    Contact:
-      type: object
-      properties:
-        name:
-          type: string
-        email:
-          type: string
-        phone:
-          type: string
-    LocationList:
-      type: object
-      properties:
-        details:
-          type: array
-          items:
-            $ref: '#/components/schemas/Location'
-        pagination:
-          $ref: '#/components/schemas/Pagination'
     Address:
       type: object
       properties:
@@ -139,6 +121,26 @@ components:
           type: string
         country:
           type: string
+    Contact:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+    Pagination:
+      type: object
+      properties:
+        start:
+          type: integer
+        pageSize:
+          type: integer
+        totalRecordsInPage:
+          type: integer
+        moreAvailable:
+          type: boolean
     Location:
       type: object
       properties:
@@ -164,6 +166,15 @@ components:
             $ref: '#/components/schemas/Contact'
         hoursOfOperation:
           type: string
+    LocationList:
+      type: object
+      properties:
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/Location'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
     Error:
       type: object
       properties:
@@ -177,20 +188,33 @@ components:
         details:
           type: object
           additionalProperties: true
-    Pagination:
-      type: object
-      properties:
-        start:
-          type: integer
-        pageSize:
-          type: integer
-        totalRecordsInPage:
-          type: integer
-        moreAvailable:
-          type: boolean
+  parameters:
+    PageSize:
+      name: pageSize
+      in: query
+      required: false
+      description: Maximum number of records to return per page.
+      schema:
+        type: integer
+        default: 50
+    Id:
+      name: id
+      in: path
+      required: true
+      description: The Turvo resource ID.
+      schema:
+        type: string
+    Start:
+      name: start
+      in: query
+      required: false
+      description: Zero-based offset of the first record to return.
+      schema:
+        type: integer
+        default: 0
   responses:
-    ValidationError:
-      description: The request payload failed validation.
+    Unauthorized:
+      description: Missing or invalid Bearer token or API key.
       content:
         application/json:
           schema:
@@ -201,36 +225,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid Bearer token or API key.
+    ValidationError:
+      description: The request payload failed validation.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-  parameters:
-    Start:
-      name: start
-      in: query
-      required: false
-      description: Zero-based offset of the first record to return.
-      schema:
-        type: integer
-        default: 0
-    Id:
-      name: id
-      in: path
-      required: true
-      description: The Turvo resource ID.
-      schema:
-        type: string
-    PageSize:
-      name: pageSize
-      in: query
-      required: false
-      description: Maximum number of records to return per page.
-      schema:
-        type: integer
-        default: 50
   securitySchemes:
     bearerAuth:
       type: http

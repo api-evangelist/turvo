@@ -68,19 +68,6 @@ components:
         scope:
           type: string
           example: read+trust+write
-    Error:
-      type: object
-      properties:
-        Status:
-          type: string
-          example: error
-        code:
-          type: integer
-        message:
-          type: string
-        details:
-          type: object
-          additionalProperties: true
     TokenResponse:
       type: object
       properties:
@@ -96,6 +83,19 @@ components:
           type: string
         scope:
           type: string
+    Error:
+      type: object
+      properties:
+        Status:
+          type: string
+          example: error
+        code:
+          type: integer
+        message:
+          type: string
+        details:
+          type: object
+          additionalProperties: true
   responses:
     Unauthorized:
       description: Missing or invalid Bearer token or API key.
