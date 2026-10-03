@@ -123,46 +123,15 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  parameters:
-    StatusFilter:
-      name: status
-      in: query
-      required: false
-      description: Filter by shipment lifecycle status code.
-      schema:
-        type: string
-    PageSize:
-      name: pageSize
-      in: query
-      required: false
-      description: Maximum number of records to return per page.
-      schema:
-        type: integer
-        default: 50
-    Id:
-      name: id
-      in: path
-      required: true
-      description: The Turvo resource ID.
-      schema:
-        type: string
-    Start:
-      name: start
-      in: query
-      required: false
-      description: Zero-based offset of the first record to return.
-      schema:
-        type: integer
-        default: 0
   responses:
-    Unauthorized:
-      description: Missing or invalid Bearer token or API key.
+    NotFound:
+      description: The requested resource was not found.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
+    Unauthorized:
+      description: Missing or invalid Bearer token or API key.
       content:
         application/json:
           schema:
@@ -174,17 +143,19 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   schemas:
-    ShipmentItem:
+    Error:
       type: object
       properties:
-        name:
+        Status:
           type: string
-        quantity:
-          type: number
-        weight:
-          type: number
-        weightUnits:
+          example: error
+        code:
+          type: integer
+        message:
           type: string
+        details:
+          type: object
+          additionalProperties: true
     LocationRef:
       type: object
       properties:
@@ -208,6 +179,17 @@ components:
             $ref: '#/components/schemas/Shipment'
         pagination:
           $ref: '#/components/schemas/Pagination'
+    ShipmentItem:
+      type: object
+      properties:
+        name:
+          type: string
+        quantity:
+          type: number
+        weight:
+          type: number
+        weightUnits:
+          type: string
     Shipment:
       type: object
       properties:
@@ -284,19 +266,37 @@ components:
               format: date-time
             timezone:
               type: string
-    Error:
-      type: object
-      properties:
-        Status:
-          type: string
-          example: error
-        code:
-          type: integer
-        message:
-          type: string
-        details:
-          type: object
-          additionalProperties: true
+  parameters:
+    PageSize:
+      name: pageSize
+      in: query
+      required: false
+      description: Maximum number of records to return per page.
+      schema:
+        type: integer
+        default: 50
+    StatusFilter:
+      name: status
+      in: query
+      required: false
+      description: Filter by shipment lifecycle status code.
+      schema:
+        type: string
+    Start:
+      name: start
+      in: query
+      required: false
+      description: Zero-based offset of the first record to return.
+      schema:
+        type: integer
+        default: 0
+    Id:
+      name: id
+      in: path
+      required: true
+      description: The Turvo resource ID.
+      schema:
+        type: string
   securitySchemes:
     bearerAuth:
       type: http

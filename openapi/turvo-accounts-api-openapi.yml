@@ -106,6 +106,38 @@ paths:
           $ref: '#/components/responses/ValidationError'
 components:
   schemas:
+    Account:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+          description: Account type, such as customer, shipper, or partner.
+        address:
+          $ref: '#/components/schemas/Address'
+        contacts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Contact'
+        billing:
+          type: object
+          additionalProperties: true
+    Error:
+      type: object
+      properties:
+        Status:
+          type: string
+          example: error
+        code:
+          type: integer
+        message:
+          type: string
+        details:
+          type: object
+          additionalProperties: true
     AccountList:
       type: object
       properties:
@@ -130,34 +162,6 @@ components:
           type: string
         country:
           type: string
-    Account:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        type:
-          type: string
-          description: Account type, such as customer, shipper, or partner.
-        address:
-          $ref: '#/components/schemas/Address'
-        contacts:
-          type: array
-          items:
-            $ref: '#/components/schemas/Contact'
-        billing:
-          type: object
-          additionalProperties: true
-    Contact:
-      type: object
-      properties:
-        name:
-          type: string
-        email:
-          type: string
-        phone:
-          type: string
     Pagination:
       type: object
       properties:
@@ -169,19 +173,34 @@ components:
           type: integer
         moreAvailable:
           type: boolean
-    Error:
+    Contact:
       type: object
       properties:
-        Status:
+        name:
           type: string
-          example: error
-        code:
-          type: integer
-        message:
+        email:
           type: string
-        details:
-          type: object
-          additionalProperties: true
+        phone:
+          type: string
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid Bearer token or API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ValidationError:
+      description: The request payload failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
     PageSize:
       name: pageSize
@@ -206,25 +225,6 @@ components:
       schema:
         type: integer
         default: 0
-  responses:
-    Unauthorized:
-      description: Missing or invalid Bearer token or API key.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    ValidationError:
-      description: The request payload failed validation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http
