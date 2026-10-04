@@ -44,14 +44,35 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  responses:
-    Unauthorized:
-      description: Missing or invalid Bearer token or API key.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
+    Error:
+      type: object
+      properties:
+        Status:
+          type: string
+          example: error
+        code:
+          type: integer
+        message:
+          type: string
+        details:
+          type: object
+          additionalProperties: true
+    TokenResponse:
+      type: object
+      properties:
+        access_token:
+          type: string
+        token_type:
+          type: string
+          example: bearer
+        expires_in:
+          type: integer
+          example: 86400
+        refresh_token:
+          type: string
+        scope:
+          type: string
     TokenRequest:
       type: object
       required:
@@ -75,34 +96,6 @@ components:
         scope:
           type: string
           example: read+trust+write
-    TokenResponse:
-      type: object
-      properties:
-        access_token:
-          type: string
-        token_type:
-          type: string
-          example: bearer
-        expires_in:
-          type: integer
-          example: 86400
-        refresh_token:
-          type: string
-        scope:
-          type: string
-    Error:
-      type: object
-      properties:
-        Status:
-          type: string
-          example: error
-        code:
-          type: integer
-        message:
-          type: string
-        details:
-          type: object
-          additionalProperties: true
   parameters:
     ApiKeyHeader:
       name: x-api-key
@@ -111,6 +104,13 @@ components:
       description: Per-tenant API key from the Turvo tenant API profile.
       schema:
         type: string
+  responses:
+    Unauthorized:
+      description: Missing or invalid Bearer token or API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

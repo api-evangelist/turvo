@@ -105,35 +105,44 @@ paths:
         '422':
           $ref: '#/components/responses/ValidationError'
 components:
-  responses:
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid Bearer token or API key.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    ValidationError:
-      description: The request payload failed validation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+  parameters:
+    Id:
+      name: id
+      in: path
+      required: true
+      description: The Turvo resource ID.
+      schema:
+        type: string
+    PageSize:
+      name: pageSize
+      in: query
+      required: false
+      description: Maximum number of records to return per page.
+      schema:
+        type: integer
+        default: 50
+    Start:
+      name: start
+      in: query
+      required: false
+      description: Zero-based offset of the first record to return.
+      schema:
+        type: integer
+        default: 0
   schemas:
-    CarrierList:
+    Error:
       type: object
       properties:
+        Status:
+          type: string
+          example: error
+        code:
+          type: integer
+        message:
+          type: string
         details:
-          type: array
-          items:
-            $ref: '#/components/schemas/Carrier'
-        pagination:
-          $ref: '#/components/schemas/Pagination'
+          type: object
+          additionalProperties: true
     Carrier:
       type: object
       properties:
@@ -158,19 +167,24 @@ components:
         compliance:
           type: object
           additionalProperties: true
-    Error:
+    CarrierList:
       type: object
       properties:
-        Status:
-          type: string
-          example: error
-        code:
-          type: integer
-        message:
-          type: string
         details:
-          type: object
-          additionalProperties: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Carrier'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+    Contact:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
     Pagination:
       type: object
       properties:
@@ -182,39 +196,25 @@ components:
           type: integer
         moreAvailable:
           type: boolean
-    Contact:
-      type: object
-      properties:
-        name:
-          type: string
-        email:
-          type: string
-        phone:
-          type: string
-  parameters:
-    PageSize:
-      name: pageSize
-      in: query
-      required: false
-      description: Maximum number of records to return per page.
-      schema:
-        type: integer
-        default: 50
-    Id:
-      name: id
-      in: path
-      required: true
-      description: The Turvo resource ID.
-      schema:
-        type: string
-    Start:
-      name: start
-      in: query
-      required: false
-      description: Zero-based offset of the first record to return.
-      schema:
-        type: integer
-        default: 0
+  responses:
+    ValidationError:
+      description: The request payload failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid Bearer token or API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

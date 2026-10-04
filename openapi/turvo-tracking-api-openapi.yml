@@ -67,26 +67,28 @@ paths:
         '422':
           $ref: '#/components/responses/ValidationError'
 components:
-  responses:
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid Bearer token or API key.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    ValidationError:
-      description: The request payload failed validation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+  parameters:
+    Id:
+      name: id
+      in: path
+      required: true
+      description: The Turvo resource ID.
+      schema:
+        type: string
   schemas:
+    Error:
+      type: object
+      properties:
+        Status:
+          type: string
+          example: error
+        code:
+          type: integer
+        message:
+          type: string
+        details:
+          type: object
+          additionalProperties: true
     LocationUpdate:
       type: object
       properties:
@@ -106,27 +108,25 @@ components:
           description: Status milestone such as arrived, departed, or in-transit.
         notes:
           type: string
-    Error:
-      type: object
-      properties:
-        Status:
-          type: string
-          example: error
-        code:
-          type: integer
-        message:
-          type: string
-        details:
-          type: object
-          additionalProperties: true
-  parameters:
-    Id:
-      name: id
-      in: path
-      required: true
-      description: The Turvo resource ID.
-      schema:
-        type: string
+  responses:
+    ValidationError:
+      description: The request payload failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid Bearer token or API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

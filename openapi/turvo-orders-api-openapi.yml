@@ -105,25 +105,30 @@ paths:
         '422':
           $ref: '#/components/responses/ValidationError'
 components:
-  responses:
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid Bearer token or API key.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    ValidationError:
-      description: The request payload failed validation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+  parameters:
+    Id:
+      name: id
+      in: path
+      required: true
+      description: The Turvo resource ID.
+      schema:
+        type: string
+    PageSize:
+      name: pageSize
+      in: query
+      required: false
+      description: Maximum number of records to return per page.
+      schema:
+        type: integer
+        default: 50
+    Start:
+      name: start
+      in: query
+      required: false
+      description: Zero-based offset of the first record to return.
+      schema:
+        type: integer
+        default: 0
   schemas:
     Error:
       type: object
@@ -138,6 +143,51 @@ components:
         details:
           type: object
           additionalProperties: true
+    LocationRef:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+    AccountRef:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+    ShipmentItem:
+      type: object
+      properties:
+        name:
+          type: string
+        quantity:
+          type: number
+        weight:
+          type: number
+        weightUnits:
+          type: string
+    OrderList:
+      type: object
+      properties:
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/Order'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+    Pagination:
+      type: object
+      properties:
+        start:
+          type: integer
+        pageSize:
+          type: integer
+        totalRecordsInPage:
+          type: integer
+        moreAvailable:
+          type: boolean
     Order:
       type: object
       properties:
@@ -162,75 +212,25 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ShipmentItem'
-    AccountRef:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-    LocationRef:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-    OrderList:
-      type: object
-      properties:
-        details:
-          type: array
-          items:
-            $ref: '#/components/schemas/Order'
-        pagination:
-          $ref: '#/components/schemas/Pagination'
-    ShipmentItem:
-      type: object
-      properties:
-        name:
-          type: string
-        quantity:
-          type: number
-        weight:
-          type: number
-        weightUnits:
-          type: string
-    Pagination:
-      type: object
-      properties:
-        start:
-          type: integer
-        pageSize:
-          type: integer
-        totalRecordsInPage:
-          type: integer
-        moreAvailable:
-          type: boolean
-  parameters:
-    PageSize:
-      name: pageSize
-      in: query
-      required: false
-      description: Maximum number of records to return per page.
-      schema:
-        type: integer
-        default: 50
-    Start:
-      name: start
-      in: query
-      required: false
-      description: Zero-based offset of the first record to return.
-      schema:
-        type: integer
-        default: 0
-    Id:
-      name: id
-      in: path
-      required: true
-      description: The Turvo resource ID.
-      schema:
-        type: string
+  responses:
+    ValidationError:
+      description: The request payload failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid Bearer token or API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http
