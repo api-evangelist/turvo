@@ -55,7 +55,7 @@ tags_raw:
 - Shipments
 - Carriers
 created: '2026-07-05'
-modified: '2026-07-05'
+modified: '2026-10-06'
 specificationVersion: '0.23'
 apis:
 - aid: turvo:turvo-accounts-api
@@ -200,6 +200,10 @@ apis:
   - type: OpenCollection
     url: collections/turvo.opencollection.json
 common:
+- url: https://turvo.com/resources/articles/
+  type: Blog
+- url: https://turvo.com/feed/
+  type: BlogRSS
 - type: Pricing
   url: https://turvo.com/pricing/
 - type: CapabilityMap
