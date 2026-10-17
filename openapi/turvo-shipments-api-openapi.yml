@@ -123,85 +123,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  parameters:
-    Id:
-      name: id
-      in: path
-      required: true
-      description: The Turvo resource ID.
-      schema:
-        type: string
-    PageSize:
-      name: pageSize
-      in: query
-      required: false
-      description: Maximum number of records to return per page.
-      schema:
-        type: integer
-        default: 50
-    StatusFilter:
-      name: status
-      in: query
-      required: false
-      description: Filter by shipment lifecycle status code.
-      schema:
-        type: string
-    Start:
-      name: start
-      in: query
-      required: false
-      description: Zero-based offset of the first record to return.
-      schema:
-        type: integer
-        default: 0
   schemas:
-    Error:
-      type: object
-      properties:
-        Status:
-          type: string
-          example: error
-        code:
-          type: integer
-        message:
-          type: string
-        details:
-          type: object
-          additionalProperties: true
-    ShipmentList:
-      type: object
-      properties:
-        details:
-          type: array
-          items:
-            $ref: '#/components/schemas/Shipment'
-        pagination:
-          $ref: '#/components/schemas/Pagination'
-    LocationRef:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-    Stop:
-      type: object
-      properties:
-        sequence:
-          type: integer
-        stopType:
-          type: string
-          description: Pickup or delivery.
-        location:
-          $ref: '#/components/schemas/LocationRef'
-        appointment:
-          type: object
-          properties:
-            date:
-              type: string
-              format: date-time
-            timezone:
-              type: string
     ShipmentItem:
       type: object
       properties:
@@ -213,6 +135,17 @@ components:
           type: number
         weightUnits:
           type: string
+    Pagination:
+      type: object
+      properties:
+        start:
+          type: integer
+        pageSize:
+          type: integer
+        totalRecordsInPage:
+          type: integer
+        moreAvailable:
+          type: boolean
     Shipment:
       type: object
       properties:
@@ -260,17 +193,24 @@ components:
         costs:
           type: object
           additionalProperties: true
-    Pagination:
+    Stop:
       type: object
       properties:
-        start:
+        sequence:
           type: integer
-        pageSize:
-          type: integer
-        totalRecordsInPage:
-          type: integer
-        moreAvailable:
-          type: boolean
+        stopType:
+          type: string
+          description: Pickup or delivery.
+        location:
+          $ref: '#/components/schemas/LocationRef'
+        appointment:
+          type: object
+          properties:
+            date:
+              type: string
+              format: date-time
+            timezone:
+              type: string
     DeleteResponse:
       type: object
       properties:
@@ -278,6 +218,35 @@ components:
           type: string
         deleted:
           type: boolean
+    Error:
+      type: object
+      properties:
+        Status:
+          type: string
+          example: error
+        code:
+          type: integer
+        message:
+          type: string
+        details:
+          type: object
+          additionalProperties: true
+    ShipmentList:
+      type: object
+      properties:
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/Shipment'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+    LocationRef:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
   responses:
     ValidationError:
       description: The request payload failed validation.
@@ -297,6 +266,37 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+  parameters:
+    PageSize:
+      name: pageSize
+      in: query
+      required: false
+      description: Maximum number of records to return per page.
+      schema:
+        type: integer
+        default: 50
+    Start:
+      name: start
+      in: query
+      required: false
+      description: Zero-based offset of the first record to return.
+      schema:
+        type: integer
+        default: 0
+    Id:
+      name: id
+      in: path
+      required: true
+      description: The Turvo resource ID.
+      schema:
+        type: string
+    StatusFilter:
+      name: status
+      in: query
+      required: false
+      description: Filter by shipment lifecycle status code.
+      schema:
+        type: string
   securitySchemes:
     bearerAuth:
       type: http

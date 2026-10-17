@@ -67,28 +67,7 @@ paths:
         '422':
           $ref: '#/components/responses/ValidationError'
 components:
-  parameters:
-    Id:
-      name: id
-      in: path
-      required: true
-      description: The Turvo resource ID.
-      schema:
-        type: string
   schemas:
-    Error:
-      type: object
-      properties:
-        Status:
-          type: string
-          example: error
-        code:
-          type: integer
-        message:
-          type: string
-        details:
-          type: object
-          additionalProperties: true
     LocationUpdate:
       type: object
       properties:
@@ -108,6 +87,19 @@ components:
           description: Status milestone such as arrived, departed, or in-transit.
         notes:
           type: string
+    Error:
+      type: object
+      properties:
+        Status:
+          type: string
+          example: error
+        code:
+          type: integer
+        message:
+          type: string
+        details:
+          type: object
+          additionalProperties: true
   responses:
     ValidationError:
       description: The request payload failed validation.
@@ -127,6 +119,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+  parameters:
+    Id:
+      name: id
+      in: path
+      required: true
+      description: The Turvo resource ID.
+      schema:
+        type: string
   securitySchemes:
     bearerAuth:
       type: http

@@ -44,6 +44,14 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  parameters:
+    ApiKeyHeader:
+      name: x-api-key
+      in: header
+      required: true
+      description: Per-tenant API key from the Turvo tenant API profile.
+      schema:
+        type: string
   schemas:
     Error:
       type: object
@@ -96,14 +104,6 @@ components:
         scope:
           type: string
           example: read+trust+write
-  parameters:
-    ApiKeyHeader:
-      name: x-api-key
-      in: header
-      required: true
-      description: Per-tenant API key from the Turvo tenant API profile.
-      schema:
-        type: string
   responses:
     Unauthorized:
       description: Missing or invalid Bearer token or API key.

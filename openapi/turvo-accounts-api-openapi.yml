@@ -105,30 +105,6 @@ paths:
         '422':
           $ref: '#/components/responses/ValidationError'
 components:
-  parameters:
-    Id:
-      name: id
-      in: path
-      required: true
-      description: The Turvo resource ID.
-      schema:
-        type: string
-    PageSize:
-      name: pageSize
-      in: query
-      required: false
-      description: Maximum number of records to return per page.
-      schema:
-        type: integer
-        default: 50
-    Start:
-      name: start
-      in: query
-      required: false
-      description: Zero-based offset of the first record to return.
-      schema:
-        type: integer
-        default: 0
   schemas:
     AccountList:
       type: object
@@ -139,19 +115,17 @@ components:
             $ref: '#/components/schemas/Account'
         pagination:
           $ref: '#/components/schemas/Pagination'
-    Error:
+    Pagination:
       type: object
       properties:
-        Status:
-          type: string
-          example: error
-        code:
+        start:
           type: integer
-        message:
-          type: string
-        details:
-          type: object
-          additionalProperties: true
+        pageSize:
+          type: integer
+        totalRecordsInPage:
+          type: integer
+        moreAvailable:
+          type: boolean
     Account:
       type: object
       properties:
@@ -171,26 +145,19 @@ components:
         billing:
           type: object
           additionalProperties: true
-    Pagination:
+    Error:
       type: object
       properties:
-        start:
-          type: integer
-        pageSize:
-          type: integer
-        totalRecordsInPage:
-          type: integer
-        moreAvailable:
-          type: boolean
-    Contact:
-      type: object
-      properties:
-        name:
+        Status:
           type: string
-        email:
+          example: error
+        code:
+          type: integer
+        message:
           type: string
-        phone:
-          type: string
+        details:
+          type: object
+          additionalProperties: true
     Address:
       type: object
       properties:
@@ -206,15 +173,18 @@ components:
           type: string
         country:
           type: string
+    Contact:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
   responses:
     ValidationError:
       description: The request payload failed validation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid Bearer token or API key.
       content:
         application/json:
           schema:
@@ -225,6 +195,36 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid Bearer token or API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    PageSize:
+      name: pageSize
+      in: query
+      required: false
+      description: Maximum number of records to return per page.
+      schema:
+        type: integer
+        default: 50
+    Start:
+      name: start
+      in: query
+      required: false
+      description: Zero-based offset of the first record to return.
+      schema:
+        type: integer
+        default: 0
+    Id:
+      name: id
+      in: path
+      required: true
+      description: The Turvo resource ID.
+      schema:
+        type: string
   securitySchemes:
     bearerAuth:
       type: http
